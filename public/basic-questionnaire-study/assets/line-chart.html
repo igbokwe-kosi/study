@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Line Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Load revisit-communicate to be able to send data to reVISit -->
+    <script src="../../revisitUtilities/revisit-communicate.js"></script>
+    <style>
+      svg {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      .axis path,
+      .axis line {
+        stroke: #ccc;
+      }
+      .point {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+  </body>
+
+  <script>
+    Revisit.onDataReceive((data) => {
+      // Expect parameters: { lineData: number[], labels?: string[] }
+      const lineData = Array.isArray(data.lineData)
+        ? data.lineData
+        : [1, 3, 2, 4, 3];
+      const labels =
+        Array.isArray(data.labels) && data.labels.length === lineData.length
+          ? data.labels
+          : lineData.map((_, i) => String(i + 1));
+
+      const taskID = "lineChart";
+
+      const width = 750;
+      const height = 400;
+      const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+
+      const svg = d3
+        .select("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+      svg.selectAll("*").remove(); // clear previous render
+
+      const g = svg
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3
+        .scalePoint()
+        .domain(labels)
+        .range([0, width])
+        .padding(0.5);
+
+      const yMin = d3.min(lineData);
+      const yMax = d3.max(lineData);
+      const yScale = d3
+        .scaleLinear()
+        .domain([yMin - Math.abs(yMin) * 0.1, yMax + Math.abs(yMax) * 0.1])
+        .nice()
+        .range([height, 0]);
+
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale).ticks(6);
+
+      // draw axes
+      g.append("g")
+        .attr("class", "axis x-axis")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis)
+        .selectAll("text")
+        .attr("dy", "0.6em");
+
+      g.append("g").attr("class", "axis y-axis").call(yAxis);
+
+      // line generator
+      const line = d3
+        .line()
+        .x((d, i) => xScale(labels[i]))
+        .y((d) => yScale(d))
+        .curve(d3.curveMonotoneX);
+
+      // draw line
+      g.append("path")
+        .datum(lineData)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+
+      // draw points
+      g.selectAll(".point")
+        .data(lineData)
+        .join("circle")
+        .classed("point", true)
+        .attr("cx", (d, i) => xScale(labels[i]))
+        .attr("cy", (d) => yScale(d))
+        .attr("r", 6)
+        .attr("fill", "white")
+        .attr("stroke", "steelblue")
+        .on("click", (event, d) => {
+          // post the clicked value as the reactive response
+          Revisit.postAnswers({ [taskID]: d });
+        })
+        .append("title")
+        .text((d, i) => `${labels[i]}: ${d}`);
+
+      // optional: clickable labels for instruction accessibility
+      g.append("text")
+        .attr("x", 0)
+        .attr("y", -8)
+        .attr("fill", "#333")
+        .attr("font-size", 13)
+        .text("Click a point to submit its value");
+    });
+  </script>
+</html>
