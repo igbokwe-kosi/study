@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/GlobalConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/GlobalConfigSchema.json",
   "configsList": [
-    "basic-questionnaire-study",
     "tutorial",
+    "tutorial-replication",
     "demo-html",
     "demo-html-input",
     "demo-screen-recording",
@@ -52,11 +52,11 @@
     "test-step-logic"
   ],
   "configs": {
-    "basic-questionnaire-study": {
-      "path": "basic-questionnaire-study/config.json"
-    },
     "tutorial": {
       "path": "tutorial/config.json"
+    },
+    "tutorial-replication": {
+      "path": "tutorial/replication-config.json"
     },
     "demo-video-slider": {
       "path": "demo-video-slider/config.json"
