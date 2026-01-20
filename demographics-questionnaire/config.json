@@ -1,0 +1,137 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/main/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "Patient Demographic Questionnaire",
+    "version": "1.0",
+    "authors": ["Kosisochukwu Igbokwe"],
+    "date": "2026-01-18",
+    "description": "A demographic questionnaire focused on understanding patient characteristics and diabetes-related health data practices.",
+    "organizations": ["Interactions Lab, University of Calgary"]
+  },
+  "uiConfig": {
+    "contactEmail": "kosiso.igbokwe@ucalgary.ca",
+    "helpTextPath": "demographics-questionnaire/assets/help.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "withSidebar": true
+  },
+  "components": {
+    "introduction": {
+      "type": "markdown",
+      "path": "demographics-questionnaire/assets/introduction.md",
+      "response": []
+    },
+    "personal-information": {
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "gender-identity",
+          "prompt": "What is your gender identity?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Man",
+            "Woman",
+            "Non-binary",
+            "Two Spirit",
+            "Prefer not to answer"
+          ]
+        },
+        {
+          "id": "age-group",
+          "prompt": "What is your age group?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "18-25",
+            "26-35",
+            "36-45",
+            "46-55",
+            "56-65",
+            "66-75",
+            "76-85",
+            "86+"
+          ]
+        },
+        {
+          "id": "education-level",
+          "prompt": "What is the highest level of education you have attained?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "High school or equivalent",
+            "Vocational/technical school (2 year)",
+            "Some university",
+            "University graduate (4 year)",
+            "Master's degree",
+            "Doctoral degree (PhD)",
+            "Professional degree (MD, JD, etc)",
+            "Other"
+          ]
+        }
+      ]
+    },
+    "health-demographics": {
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "diabetes-status",
+          "prompt": "Which of the following best describes your current diabetes-related health status?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "I have been diagnosed as pre-diabetic",
+            "I have gestational diabetes",
+            "I have Type 1 diabetes",
+            "I have Type 2 diabetes",
+            "None of the above"
+          ]
+        },
+        {
+          "id": "glucose-tracking-methods",
+          "prompt": "How do you track your glucose data? (Select all that apply)",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Continuous Glucose Monitor (CGM)",
+            "Blood glucose meter (finger-prick device)",
+            "Paper log/notebook",
+            "Mobile app",
+            "Insulin pump",
+            "I do not track my glucose",
+            "Other"
+          ]
+        },
+        {
+          "id": "glucose-review-frequency",
+          "prompt": "How often do you review your glucose data or reports?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Daily",
+            "Several times per week",
+            "Weekly",
+            "Monthly",
+            "Rarely",
+            "Never"
+          ]
+        }
+      ]
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": [
+      "introduction",
+      "personal-information",
+      "health-demographics"
+    ]
+  }
+}

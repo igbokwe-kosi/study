@@ -1,6 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/GlobalConfigSchema.json",
   "configsList": [
+    "mini-vlat",
+    "demographics-questionnaire",
     "my-study",
     "tutorial",
     "tutorial-replication",
@@ -53,6 +55,12 @@
     "test-step-logic"
   ],
   "configs": {
+    "mini-vlat": {
+      "path": "mini-vlat/config.json"
+    },
+    "demographics-questionnaire": {
+      "path": "demographics-questionnaire/config.json"
+    },
     "my-study": {
       "path": "my-study/config.json"
     },

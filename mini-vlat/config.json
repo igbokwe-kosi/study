@@ -1,0 +1,72 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.2/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "Mini VLAT - Visualization Literacy Assessment Test",
+    "version": "1.0",
+    "authors": ["The reVisit Team"],
+    "date": "2026-01-18",
+    "description": "A comprehensive visualization literacy assessment test (Mini VLAT) to evaluate understanding of data visualization comprehension across 12 diverse visualization types.",
+    "organizations": ["University of Utah", "WPI", "University of Toronto"]
+  },
+  "uiConfig": {
+    "contactEmail": "contact@revisit.dev",
+    "helpTextPath": "mini-vlat/assets/help.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "withSidebar": true
+  },
+  "importedLibraries": ["mini-vlat"],
+  "components": {
+    "introduction": {
+      "type": "markdown",
+      "path": "mini-vlat/assets/introduction.md",
+      "response": []
+    },
+    "consent": {
+      "type": "markdown",
+      "path": "mini-vlat/assets/consent.md",
+      "response": [
+        {
+          "id": "userInitials",
+          "prompt": "Please type your initials below to confirm consent.",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Your Initials",
+          "required": true
+        }
+      ]
+    },
+    "survey": {
+      "type": "markdown",
+      "path": "mini-vlat/assets/survey.md",
+      "response": [
+        {
+          "id": "surveyExperience",
+          "prompt": "Did you experience any problems with the assessment tool?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here."
+        },
+        {
+          "id": "surveyRenderIssues",
+          "prompt": "Did anything not render or display properly?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here"
+        },
+        {
+          "id": "surveyFeedback",
+          "prompt": "Any additional feedback or comments about the assessment?",
+          "location": "belowStimulus",
+          "type": "longText",
+          "placeholder": "Enter your answer here"
+        }
+      ]
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": ["introduction", "consent", "$mini-vlat.se.full", "survey"]
+  }
+}
