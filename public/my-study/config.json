@@ -1,67 +1,351 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/main/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
-    "title": "Basic Questionnaire Study",
-    "version": "pilot",
-    "authors": ["The reVISit Team"],
-    "date": "2024-03-19",
-    "description": "A simple questionnaire study",
-    "organizations": ["University of Utah", "WPI"]
+    "title": "Combined Study - Demographics & Visualization Literacy",
+    "version": "1.0",
+    "authors": ["Kosisochukwu Igbokwe"],
+    "date": "2026-01-25",
+    "description": "A study consisting of a demographic questionnaire and a visualization literacy assessment focused on glucose data.",
+    "organizations": ["Interactions Lab", "University of Calgary"]
   },
   "uiConfig": {
-    "contactEmail": "contact@revisit.dev",
+    "contactEmail": "kosiso.igbokwe@ucalgary.ca",
     "helpTextPath": "my-study/assets/help.md",
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "withSidebar": true
+    "withSidebar": true,
+    "sidebarWidth": 200
   },
+  "baseComponents": {
+    "glucoseLineChart": {
+      "description": "Line chart stimulus for glucose aggregation data ",
+      "type": "react-component",
+      "path": "my-study/assets/LineChart.tsx",
+      "nextButtonLocation": "belowStimulus",
+      "instructionLocation": "aboveStimulus",
+      "response": []
+    }
+  },
+  "importedLibraries": ["mini-vlat"],
   "components": {
     "introduction": {
       "type": "markdown",
       "path": "my-study/assets/introduction.md",
       "response": []
     },
-    "first-question-set": {
+    "demographics-personal": {
       "type": "questionnaire",
       "response": [
         {
-          "id": "q1-name",
-          "prompt": "What is your first name?",
+          "id": "gender-identity",
+          "prompt": "What is your gender identity?",
           "required": true,
           "location": "aboveStimulus",
-          "type": "longText",
-          "placeholder": "Please enter your first name"
+          "type": "radio",
+          "options": [
+            "Man",
+            "Woman",
+            "Non-binary",
+            "Two Spirit",
+            "Prefer not to answer"
+          ]
         },
         {
-          "id": "q2-color",
-          "prompt": "What is your favorite color?",
+          "id": "age-group",
+          "prompt": "What is your age group?",
           "required": true,
           "location": "aboveStimulus",
-          "type": "dropdown",
-          "placeholder": "Please choose your favorite color",
-          "options": ["Red", "Blue", "My favorite color is not shown here."]
+          "type": "radio",
+          "options": [
+            "18-25",
+            "26-35",
+            "36-45",
+            "46-55",
+            "56-65",
+            "66-75",
+            "76-85",
+            "86+"
+          ]
+        },
+        {
+          "id": "education-level",
+          "prompt": "What is the highest level of education you have attained?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "High school or equivalent",
+            "Vocational/technical school (2 year)",
+            "Some university",
+            "University graduate (4 year)",
+            "Master's degree",
+            "Doctoral degree (PhD)",
+            "Professional degree (MD, JD, etc)",
+            "Other"
+          ]
         }
       ]
     },
-    "second-question-set": {
+    "demographics-health": {
       "type": "questionnaire",
       "response": [
         {
-          "id": "q3-satisfaction",
-          "prompt": "Rate your satisfaction with this survey from 1 (not enjoyable) to 5 (very enjoyable).",
+          "id": "diabetes-status",
+          "prompt": "Which of the following best describes your current diabetes-related health status?",
           "required": true,
           "location": "aboveStimulus",
-          "type": "likert",
-          "leftLabel": "Not Enjoyable",
-          "rightLabel": "Very Enjoyable",
-          "numItems": 5
+          "type": "radio",
+          "options": [
+            "I have been diagnosed as pre-diabetic",
+            "I have gestational diabetes",
+            "I have Type 1 diabetes",
+            "I have Type 2 diabetes",
+            "None of the above"
+          ]
+        },
+        {
+          "id": "glucose-tracking-methods",
+          "prompt": "How do you track your glucose data? (Select all that apply)",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Continuous Glucose Monitor (CGM)",
+            "Blood glucose meter (finger-prick device)",
+            "Paper log/notebook",
+            "Mobile app",
+            "Insulin pump",
+            "I do not track my glucose",
+            "Other"
+          ]
+        },
+        {
+          "id": "glucose-review-frequency",
+          "prompt": "How often do you review your glucose data or reports?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Daily",
+            "Several times per week",
+            "Weekly",
+            "Monthly",
+            "Rarely",
+            "Never"
+          ]
         }
       ]
+    },
+    "visualization-consent": {
+      "type": "markdown",
+      "path": "my-study/assets/consent.md",
+      "response": [
+        {
+          "id": "userInitials",
+          "prompt": "Please type your initials below to confirm consent for the visualization assessment.",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Your Initials",
+          "required": true
+        }
+      ]
+    },
+    "endofminivlat": {
+      "type": "markdown",
+      "path": "my-study/assets/endofminivlat.md",
+      "response": []
+    },
+    "glucose-intro": {
+      "type": "markdown",
+      "path": "my-study/assets/glucose-intro.md",
+      "response": []
+    },
+    "glucose-7day-chart": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_7d_aggregation.csv",
+        "title": "7-Day Glucose Tracking",
+        "color": "#4c6ef5",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_7day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-14day-chart": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_14d_aggregation.csv",
+        "title": "14-Day Glucose Tracking",
+        "color": "#15aabf",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_14day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-30day-chart": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_30d_aggregation.csv",
+        "title": "30-Day Glucose Tracking",
+        "color": "#12b886",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_30day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-90day-chart": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_90d_aggregation.csv",
+        "title": "90-Day Glucose Tracking",
+        "color": "#fd7e14",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_90day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-conclusion": {
+      "type": "markdown",
+      "path": "my-study/assets/glucose-conclusion.md",
+      "response": []
     }
   },
   "sequence": {
     "order": "fixed",
-    "components": ["introduction", "first-question-set", "second-question-set"]
+    "components": [
+      "introduction",
+      "demographics-personal",
+      "demographics-health",
+      "visualization-consent",
+      "$mini-vlat.se.full",
+      "endofminivlat",
+      "glucose-intro",
+      "glucose-7day-chart",
+      "glucose-14day-chart",
+      "glucose-30day-chart",
+      "glucose-90day-chart",
+      "glucose-conclusion"
+    ]
   }
 }
