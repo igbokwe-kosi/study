@@ -25,6 +25,22 @@
       "nextButtonLocation": "belowStimulus",
       "instructionLocation": "aboveStimulus",
       "response": []
+    },
+    "glucosePercentileLineChart": {
+      "description": "Line chart with percentile bands for glucose data",
+      "type": "react-component",
+      "path": "my-study/assets/LineChartQuartile.tsx",
+      "nextButtonLocation": "belowStimulus",
+      "instructionLocation": "aboveStimulus",
+      "response": []
+    },
+    "glucoseBarChart": {
+      "description": "Bar chart stimulus for glucose aggregation data",
+      "type": "react-component",
+      "path": "my-study/assets/BarChart.tsx",
+      "nextButtonLocation": "belowStimulus",
+      "instructionLocation": "aboveStimulus",
+      "response": []
     }
   },
   "importedLibraries": ["mini-vlat"],
@@ -34,13 +50,100 @@
       "path": "my-study/assets/introduction.md",
       "response": []
     },
+        "visualization-consent": {
+      "type": "markdown",
+      "path": "my-study/assets/consent.md",
+      "response": [
+        {
+              "id": "participant-name",
+              "prompt": "Participant name (please print):",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "placeholder": "Your full name",
+              "required": true
+            },
+            {
+              "id": "participant-signature",
+              "prompt": "Participant signature:",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "required": true
+            },
+            {
+              "id": "userInitials",
+              "prompt": "Please type your initials below to confirm consent for the visualization assessment.",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "placeholder": "Your initials",
+              "required": true
+            },
+            {
+              "id": "anonymous-preference",
+              "prompt": "I wish to remain anonymous:",
+              "location": "belowStimulus",
+              "type": "radio",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "required": true
+            },
+            {
+              "id": "pseudonym-preference",
+              "prompt": "I wish to remain anonymous, but you may refer to me by a pseudonym:",
+              "location": "belowStimulus",
+              "type": "radio",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "required": true
+            },
+            {
+              "id": "pseudonym",
+              "prompt": "The pseudonym I chose for myself is:",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "required": false
+            },
+            {
+              "id": "quote-with-name",
+              "prompt": "You may quote me and use my name:",
+              "location": "belowStimulus",
+              "type": "radio",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "required": true
+            },
+            {
+              "id": "follow-up-contact",
+              "prompt": "You may contact me for a follow-up interview:",
+              "location": "belowStimulus",
+              "type": "radio",
+              "options": [
+                "Yes",
+                "No"
+              ],
+              "required": true
+            },
+            {
+              "id": "follow-up-email",
+              "prompt": "If yes, please provide an email address where we can reach you:",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "required": false
+            }
+      ]
+    },
     "demographics-personal": {
       "type": "questionnaire",
       "response": [
         {
           "id": "gender-identity",
           "prompt": "What is your gender identity?",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -54,14 +157,14 @@
         {
           "id": "age-group",
           "prompt": "What is your age group?",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
             "18-25",
             "26-35",
             "36-45",
-            "46-55",
+            "46-56",
             "56-65",
             "66-75",
             "76-85",
@@ -71,7 +174,7 @@
         {
           "id": "education-level",
           "prompt": "What is the highest level of education you have attained?",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -84,16 +187,18 @@
             "Professional degree (MD, JD, etc)",
             "Other"
           ]
-        }
-      ]
-    },
-    "demographics-health": {
-      "type": "questionnaire",
-      "response": [
+        },
+        {
+          "id": "education-other",
+          "prompt": "If other, please specify:",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
         {
           "id": "diabetes-status",
           "prompt": "Which of the following best describes your current diabetes-related health status?",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -107,9 +212,9 @@
         {
           "id": "glucose-tracking-methods",
           "prompt": "How do you track your glucose data? (Select all that apply)",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
-          "type": "radio",
+          "type": "checkbox",
           "options": [
             "Continuous Glucose Monitor (CGM)",
             "Blood glucose meter (finger-prick device)",
@@ -121,9 +226,16 @@
           ]
         },
         {
+          "id": "glucose-tracking-other",
+          "prompt": "If other, please specify:",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
+        {
           "id": "glucose-review-frequency",
           "prompt": "How often do you review your glucose data or reports?",
-          "required": true,
+          "required": false,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -137,23 +249,235 @@
         }
       ]
     },
-    "visualization-consent": {
-      "type": "markdown",
-      "path": "my-study/assets/consent.md",
+
+    "diabetes-verification-test": {
+      "type": "questionnaire",
+      "instruction": "Diabetes Verification Test",
+      "instructionLocation": "aboveStimulus",
+      "nextButtonLocation": "belowStimulus",
       "response": [
         {
-          "id": "userInitials",
-          "prompt": "Please type your initials below to confirm consent for the visualization assessment.",
-          "location": "belowStimulus",
+          "id": "diagnosed-diabetes",
+          "prompt": "Have you ever been told by a healthcare professional that you have diabetes or prediabetes?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "diabetes-type",
+          "prompt": "Which best describes you?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Type 1 diabetes",
+            "Type 2 diabetes",
+            "Prediabetes",
+            "I do not have diabetes or prediabetes"
+          ]
+        },
+        {
+          "id": "diagnosis-year",
+          "prompt": "In what year were you diagnosed with diabetes or prediabetes? If this does not apply to you, please enter \"N/A\".",
+          "required": true,
           "type": "shortText",
-          "placeholder": "Your Initials",
-          "required": true
+          "location": "aboveStimulus"
+        },
+        {
+          "id": "last-a1c",
+          "prompt": "What was your last A1c number?",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
+        {
+          "id": "insulin-use",
+          "prompt": "Do you use insulin? If yes, specify the method (e.g., multiple daily injections, insulin pump).",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
+        {
+          "id": "a1c-timeframe",
+          "prompt": "A1C is a measure of your average blood glucose level for the past:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Day",
+            "Week",
+            "6-12 weeks",
+            "6 months"
+          ]
+        },
+        {
+          "id": "infection-effect",
+          "prompt": "What effect will an infection most likely have on blood glucose?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Lowers it",
+            "Raises it",
+            "Has no effect"
+          ]
+        },
+        {
+          "id": "flu-guidance",
+          "prompt": "If you are sick with the flu, you should:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Take less insulin",
+            "Drink less liquids",
+            "Eat more proteins",
+            "Test blood glucose more often"
+          ]
+        },
+        {
+          "id": "rapid-acting-low",
+          "prompt": "If you have taken rapid-acting insulin, you are most likely to have a low blood glucose reaction in:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Less than 2 hours",
+            "3-5 hours",
+            "6-12 hours",
+            "More than 13 hours"
+          ]
+        },
+        {
+          "id": "low-blood-glucose-action",
+          "prompt": "If you are beginning to have a low blood glucose reaction, you should:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Exercise",
+            "Lie down and rest",
+            "Drink some juice",
+            "Take rapid-acting insulin"
+          ]
+        },
+        {
+          "id": "low-glucose-cause",
+          "prompt": "A low blood glucose reaction may be caused by:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Too much insulin",
+            "Too little insulin",
+            "Too much food",
+            "Too little exercise"
+          ]
+        },
+        {
+          "id": "missed-breakfast-insulin",
+          "prompt": "You realize just before lunch that you forgot to take your insulin at breakfast. What should you do now?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Skip lunch to lower your blood glucose",
+            "Take the insulin that you usually take at breakfast",
+            "Take twice as much insulin as you usually take at breakfast",
+            "Check your blood glucose level to decide how much insulin to take"
+          ]
+        },
+        {
+          "id": "skip-breakfast-effect",
+          "prompt": "If you take your morning insulin but skip breakfast, your blood glucose level will usually:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Increase",
+            "Decrease",
+            "Remain the same"
+          ]
+        },
+        {
+          "id": "high-glucose-cause",
+          "prompt": "High blood glucose may be caused by:",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Not enough insulin",
+            "Skipping meals",
+            "Delaying your snack",
+            "Skipping your exercise"
+          ]
+        },
+        {
+          "id": "raise-low-glucose",
+          "prompt": "Which item is used to quickly raise low blood glucose?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "Insulin",
+            "Metformin",
+            "Juice or glucose tablets",
+            "Long-acting insulin"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "a1c-timeframe",
+          "answer": "6-12 weeks"
+        },
+        {
+          "id": "infection-effect",
+          "answer": "Raises it"
+        },
+        {
+          "id": "flu-guidance",
+          "answer": "Test blood glucose more often"
+        },
+        {
+          "id": "rapid-acting-low",
+          "answer": "Less than 2 hours"
+        },
+        {
+          "id": "low-blood-glucose-action",
+          "answer": "Drink some juice"
+        },
+        {
+          "id": "low-glucose-cause",
+          "answer": "Too much insulin"
+        },
+        {
+          "id": "missed-breakfast-insulin",
+          "answer": "Check your blood glucose level to decide how much insulin to take"
+        },
+        {
+          "id": "skip-breakfast-effect",
+          "answer": "Decrease"
+        },
+        {
+          "id": "high-glucose-cause",
+          "answer": "Not enough insulin"
+        },
+        {
+          "id": "raise-low-glucose",
+          "answer": "Juice or glucose tablets"
         }
       ]
     },
-    "endofminivlat": {
+
+
+    "minivlat-intro": {
       "type": "markdown",
-      "path": "my-study/assets/endofminivlat.md",
+      "path": "my-study/assets/minivlat-intro.md",
       "response": []
     },
     "glucose-intro": {
@@ -214,6 +538,46 @@
       "response": [
         {
           "id": "viz_readability_14day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-14day-percentile-chart": {
+      "baseComponent": "glucosePercentileLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_14d_aggregation_percentile.csv",
+        "title": "14-Day Glucose Tracking (Percentiles)",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_14day_percentile",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -325,27 +689,144 @@
         }
       ]
     },
+    "glucose-dayofweek-barchart": {
+      "baseComponent": "glucoseBarChart",
+      "parameters": {
+        "dataFile": "./data/glucose_by_day_of_week.csv",
+        "title": "Average Glucose by Day of Week",
+        "color": "#339af0",
+        "thresholdLow": 70,
+        "thresholdHigh": 180,
+        "xLabel": "Day of Week"
+      },
+      "response": [
+        {
+          "id": "viz_readability_day_of_week",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-hour-barchart": {
+      "baseComponent": "glucoseBarChart",
+      "parameters": {
+        "dataFile": "./data/glucose_by_hour.csv",
+        "title": "Average Glucose by Hour",
+        "color": "#20c997",
+        "thresholdLow": 70,
+        "thresholdHigh": 180,
+        "xLabel": "Hour"
+      },
+      "response": [
+        {
+          "id": "viz_readability_hour",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
     "glucose-conclusion": {
       "type": "markdown",
       "path": "my-study/assets/glucose-conclusion.md",
       "response": []
+    },
+    "post-study-questionnaire": {
+      "type": "questionnaire",
+      "instruction": "Post Study Questionnaire",
+      "instructionLocation": "aboveStimulus",
+      "nextButtonLocation": "belowStimulus",
+      "response": [
+        {
+          "id": "years-since-diagnosis",
+          "prompt": "How many years ago were you first diagnosed with diabetes or prediabetes, if applicable?",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
+        {
+          "id": "current-treatment",
+          "prompt": "What is your current diabetes treatment?",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        },
+        {
+          "id": "last-hba1c",
+          "prompt": "What was the result of your last HbA1c?",
+          "required": false,
+          "type": "shortText",
+          "location": "aboveStimulus"
+        }
+      ]
     }
   },
   "sequence": {
     "order": "fixed",
     "components": [
       "introduction",
-      "demographics-personal",
-      "demographics-health",
       "visualization-consent",
+      "demographics-personal",
+      "diabetes-verification-test",
+      "minivlat-intro",
       "$mini-vlat.se.full",
-      "endofminivlat",
       "glucose-intro",
       "glucose-7day-chart",
       "glucose-14day-chart",
+      "glucose-14day-percentile-chart",
       "glucose-30day-chart",
       "glucose-90day-chart",
-      "glucose-conclusion"
+      "glucose-dayofweek-barchart",
+      "glucose-hour-barchart",
+      "glucose-conclusion",
+      "post-study-questionnaire"
     ]
   }
 }

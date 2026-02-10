@@ -234,9 +234,16 @@ export default function LineChart({
       .call(d3.axisBottom(x).tickFormat((d) => d.toString()))
       .selectAll('text')
       .attr('transform', 'rotate(40)')
-      .style('text-anchor', 'start');
+      .style('text-anchor', 'start')
+      .style('font-size', '15px')
+      .style('font-weight', 'bold');
 
-    root.append('g').call(d3.axisLeft(y));
+    root
+      .append('g')
+      .call(d3.axisLeft(y))
+      .selectAll('text')
+      .style('font-size', '15px')
+      .style('font-weight', 'bold');
 
     root
       .append('text')
@@ -252,7 +259,8 @@ export default function LineChart({
       .attr('x', width / 2)
       .attr('y', height + 90)
       .attr('text-anchor', 'middle')
-      .style('font-size', '12px')
+      .style('font-size', '14px')
+      .style('font-weight', 'bold')
       .text('Date Range');
 
     root
@@ -261,7 +269,8 @@ export default function LineChart({
       .attr('x', -height / 2)
       .attr('y', -50)
       .attr('text-anchor', 'middle')
-      .style('font-size', '12px')
+      .style('font-size', '14px')
+      .style('font-weight', 'bold')
       .text('Glucose Level (mg/dL)');
   }, [data, high, low, strokeColor, parameters.title]);
 
