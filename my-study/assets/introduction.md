@@ -1,51 +1,46 @@
-# Combined Study - Demographics & Visualization Literacy
+# About This Study
 
 ## Welcome
 
-Thank you for participating in this comprehensive study. This research combines demographic information with visualization literacy assessment to better understand how personal characteristics relate to visualization comprehension.
+Thank you for your interest in participating in this research study conducted at the University of Calgary.
 
-## Study Overview
+## Study Purpose
 
-This study consists of three main parts:
+This study investigates how visualization literacy relates to the interpretation and understanding of data visualizations. We are interested in learning how well people can read and understand different types of visual information presentations.
+
+## What This Study Involves
+
+Your participation will include three parts:
 
 ### Part 1: Demographic Questionnaire
+We'll ask you about:
+- Basic demographic characteristics
+- Your educational background
+- Your experience with data and visualizations
 
-We'll collect information about:
+### Part 2: Mini-VLAT (Visualization Literacy Assessment Test)
+You'll complete a series of questions that ask you to interpret and understand various data visualizations. This assessment helps us measure visualization literacy—how well you can read and comprehend visual information. This is not a test of your "correctness" but rather helps us understand how people naturally interpret visual information.
 
-- **Personal characteristics** (gender identity, age, education)
-- **Health information** (diabetes status, glucose tracking methods and frequency)
+### Part 3: Aggregation Survey
+You'll be asked about your preferences and understanding regarding how data should be aggregated and displayed.
 
-### Part 2: Visualization Literacy Assessment
+## Time Required
 
-You'll complete the Mini VLAT (Visualization Literacy Assessment Test) with:
+This study will take approximately **30-60 minutes** to complete.
 
-- **12 multiple-choice questions** about various data visualizations
-- Questions testing your ability to interpret and understand visual data representations
+## Your Rights as a Participant
 
-### Part 3: Aggregation Preference Survey
+- **Voluntary Participation:** Your participation is completely voluntary
+- **Right to Withdraw:** You may withdraw at any time without giving a reason and without penalty
+- **Right to Skip Questions:** You may skip any question you're uncomfortable answering
+- **Confidentiality:** Your responses are confidential and will be kept secure
 
-Finally, you'll answer a brief survey about your preferences for how glucose data should be aggregated and displayed.
+## What Happens Next
 
-## Time Estimate
+Click **Next** to proceed to the informed consent form and begin the study.
 
-Total duration: **30-60 minutes**
+---
 
-- Demographics section: ~5 minutes
-- Visualization assessment: ~15-20 minutes
-- Aggregation survey: ~15-20 minutes
-
-## What to Expect
-
-1. **Introduction** (this page) - Study overview and expectations
-2. **Demographics** - Personal and health-related questions
-3. **Consent** - Informed consent for visualization assessment
-4. **Visualization Test** - 12 visualization comprehension questions
-5. **Aggregation Survey** - Preferences on glucose data display
-
-## Important Information
-
-- Your responses are **confidential and anonymous**
-- You may **withdraw at any time** without penalty
-- For best results, **maximize your browser window**
+*This study has been reviewed and approved by the University of Calgary Research Ethics Board.*
 
 Please click 'Next' to begin the demographic section.
