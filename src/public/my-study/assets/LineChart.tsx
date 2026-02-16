@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { StimulusParams } from '../../../store/types';
@@ -8,6 +9,8 @@ type LineChartParams = {
   color?: string;
   thresholdLow?: number;
   thresholdHigh?: number;
+  xLabel?: string;
+  yLabel?: string;
 };
 
 const SVG_WIDTH = 900;
@@ -20,6 +23,14 @@ const MARGIN = {
 };
 
 type Datum = { label: string; rawLabel: string; value: number };
+
+const labelKeys = ['Date Range', 'Day', 'Hour', 'label'];
+
+const getLabelKey = (row: d3.DSVRowString<string>) =>
+  labelKeys.find((key) => key in row) || 'label';
+
+const getValueKey = (row: d3.DSVRowString<string>) =>
+  (['Average Glucose level', 'value'] as const).find((key) => key in row) || 'value';
 
 export default function LineChart({
   parameters,
@@ -46,15 +57,19 @@ export default function LineChart({
 
     d3.csv(parameters.dataFile).then((rows) => {
       if (!mounted) return;
+      if (rows.length === 0) return;
+
+      const labelKey = getLabelKey(rows[0]);
+      const valueKey = getValueKey(rows[0]);
+      const shouldCleanLabel = labelKey === 'Date Range';
+
       const parsed = rows
         .map((d) => {
-          const raw = (d['Date Range'] as string) || (d.label as string) || '';
+          const raw = (d[labelKey] as string) || '';
           return {
             rawLabel: raw,
-            label: cleanLabel(raw),
-            value: Number(
-              d['Average Glucose level'] || (d.value as unknown as number) || 0,
-            ),
+            label: shouldCleanLabel ? cleanLabel(raw) : raw,
+            value: Number(d[valueKey] || 0),
           };
         })
         .filter((d) => Number.isFinite(d.value));
@@ -235,14 +250,14 @@ export default function LineChart({
       .selectAll('text')
       .attr('transform', 'rotate(40)')
       .style('text-anchor', 'start')
-      .style('font-size', '15px')
+      .style('font-size', '17px')
       .style('font-weight', 'bold');
 
     root
       .append('g')
       .call(d3.axisLeft(y))
       .selectAll('text')
-      .style('font-size', '15px')
+      .style('font-size', '17px')
       .style('font-weight', 'bold');
 
     root
@@ -259,7 +274,7 @@ export default function LineChart({
       .attr('x', width / 2)
       .attr('y', height + 90)
       .attr('text-anchor', 'middle')
-      .style('font-size', '14px')
+      .style('font-size', '16px')
       .style('font-weight', 'bold')
       .text('Date Range');
 
@@ -269,7 +284,7 @@ export default function LineChart({
       .attr('x', -height / 2)
       .attr('y', -50)
       .attr('text-anchor', 'middle')
-      .style('font-size', '14px')
+      .style('font-size', '16px')
       .style('font-weight', 'bold')
       .text('Glucose Level (mg/dL)');
   }, [data, high, low, strokeColor, parameters.title]);

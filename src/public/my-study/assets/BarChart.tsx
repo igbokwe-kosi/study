@@ -24,7 +24,7 @@ const MARGIN = {
 
 type Datum = { label: string; rawLabel: string; value: number };
 
-const labelKeys = ['Day of Week', 'Hour', 'Date Range', 'label'];
+const labelKeys = ['Day', 'Day of Week', 'Hour', 'Date Range', 'label'];
 
 const getLabelKey = (row: d3.DSVRowString<string>) =>
 	labelKeys.find((key) => key in row) || 'label';
@@ -207,15 +207,16 @@ export default function BarChart({
 			.attr('transform', `translate(0,${height})`)
 			.call(d3.axisBottom(x))
 			.selectAll('text')
-			.style('text-anchor', 'middle')
-			.style('font-size', '15px')
+			.attr('transform', 'rotate(40)')
+			.style('text-anchor', 'start')
+			.style('font-size', '17px')
 			.style('font-weight', 'bold');
 
 		root
 			.append('g')
 			.call(d3.axisLeft(y).ticks(4))
 			.selectAll('text')
-			.style('font-size', '15px')
+			.style('font-size', '17px')
 			.style('font-weight', 'bold');
 
 		root
@@ -232,7 +233,7 @@ export default function BarChart({
 			.attr('x', width / 2)
 			.attr('y', height + 90)
 			.attr('text-anchor', 'middle')
-			.style('font-size', '14px')
+			.style('font-size', '16px')
 			.style('font-weight', 'bold')
 			.text(xAxisLabel);
 
@@ -242,7 +243,7 @@ export default function BarChart({
 			.attr('x', -height / 2)
 			.attr('y', -50)
 			.attr('text-anchor', 'middle')
-			.style('font-size', '14px')
+			.style('font-size', '16px')
 			.style('font-weight', 'bold')
 			.text(yAxisLabel);
 	}, [data, fillColor, high, low, parameters.title, xAxisLabel, yAxisLabel]);
