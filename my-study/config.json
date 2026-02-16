@@ -26,18 +26,18 @@
       "instructionLocation": "aboveStimulus",
       "response": []
     },
-    "glucosePercentileLineChart": {
-      "description": "Line chart with percentile bands for glucose data",
-      "type": "react-component",
-      "path": "my-study/assets/LineChartQuartile.tsx",
-      "nextButtonLocation": "belowStimulus",
-      "instructionLocation": "aboveStimulus",
-      "response": []
-    },
     "glucoseBarChart": {
       "description": "Bar chart stimulus for glucose aggregation data",
       "type": "react-component",
       "path": "my-study/assets/BarChart.tsx",
+      "nextButtonLocation": "belowStimulus",
+      "instructionLocation": "aboveStimulus",
+      "response": []
+    },
+    "glucoseChartComparison": {
+      "description": "Comparison of all four glucose chart variations",
+      "type": "react-component",
+      "path": "my-study/assets/ChartComparison.tsx",
       "nextButtonLocation": "belowStimulus",
       "instructionLocation": "aboveStimulus",
       "response": []
@@ -143,7 +143,7 @@
         {
           "id": "gender-identity",
           "prompt": "What is your gender identity?",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -157,7 +157,7 @@
         {
           "id": "age-group",
           "prompt": "What is your age group?",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -174,7 +174,7 @@
         {
           "id": "education-level",
           "prompt": "What is the highest level of education you have attained?",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -198,7 +198,7 @@
         {
           "id": "diabetes-status",
           "prompt": "Which of the following best describes your current diabetes-related health status?",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -212,7 +212,7 @@
         {
           "id": "glucose-tracking-methods",
           "prompt": "How do you track your glucose data? (Select all that apply)",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "checkbox",
           "options": [
@@ -235,7 +235,7 @@
         {
           "id": "glucose-review-frequency",
           "prompt": "How often do you review your glucose data or reports?",
-          "required": false,
+          "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
@@ -290,14 +290,14 @@
         {
           "id": "last-a1c",
           "prompt": "What was your last A1c number?",
-          "required": false,
+          "required": true,
           "type": "shortText",
           "location": "aboveStimulus"
         },
         {
           "id": "insulin-use",
           "prompt": "Do you use insulin? If yes, specify the method (e.g., multiple daily injections, insulin pump).",
-          "required": false,
+          "required": true,
           "type": "shortText",
           "location": "aboveStimulus"
         },
@@ -485,18 +485,18 @@
       "path": "my-study/assets/glucose-intro.md",
       "response": []
     },
-    "glucose-7day-chart": {
+    "glucose-day-line-first-2weeks": {
       "baseComponent": "glucoseLineChart",
       "parameters": {
-        "dataFile": "./data/glucose_7d_aggregation.csv",
-        "title": "7-Day Glucose Tracking",
+        "dataFile": "./data/glucose_by_day_first_2_weeks.csv",
+        "title": "Average Glucose by Day (First 2 Weeks)",
         "color": "#4c6ef5",
         "thresholdLow": 70,
         "thresholdHigh": 180
       },
       "response": [
         {
-          "id": "viz_readability_7day",
+          "id": "viz_readability_day_line_2weeks",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -526,18 +526,18 @@
         }
       ]
     },
-    "glucose-14day-chart": {
+    "glucose-hour-line-first-2weeks": {
       "baseComponent": "glucoseLineChart",
       "parameters": {
-        "dataFile": "./data/glucose_14d_aggregation.csv",
-        "title": "14-Day Glucose Tracking",
+        "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
+        "title": "Average Glucose by Hour (First 2 Weeks)",
         "color": "#15aabf",
         "thresholdLow": 70,
         "thresholdHigh": 180
       },
       "response": [
         {
-          "id": "viz_readability_14day",
+          "id": "viz_readability_hour_line_2weeks",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -567,141 +567,19 @@
         }
       ]
     },
-    "glucose-14day-percentile-chart": {
-      "baseComponent": "glucosePercentileLineChart",
-      "parameters": {
-        "dataFile": "./data/glucose_14d_aggregation_percentile.csv",
-        "title": "14-Day Glucose Tracking (Percentiles)",
-        "thresholdLow": 70,
-        "thresholdHigh": 180
-      },
-      "response": [
-        {
-          "id": "viz_readability_14day_percentile",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
-    },
-    "glucose-30day-chart": {
-      "baseComponent": "glucoseLineChart",
-      "parameters": {
-        "dataFile": "./data/glucose_30d_aggregation.csv",
-        "title": "30-Day Glucose Tracking",
-        "color": "#12b886",
-        "thresholdLow": 70,
-        "thresholdHigh": 180
-      },
-      "response": [
-        {
-          "id": "viz_readability_30day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
-    },
-    "glucose-90day-chart": {
-      "baseComponent": "glucoseLineChart",
-      "parameters": {
-        "dataFile": "./data/glucose_90d_aggregation.csv",
-        "title": "90-Day Glucose Tracking",
-        "color": "#fd7e14",
-        "thresholdLow": 70,
-        "thresholdHigh": 180
-      },
-      "response": [
-        {
-          "id": "viz_readability_90day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
-    },
-    "glucose-dayofweek-barchart": {
+    "glucose-day-bar-first-2weeks": {
       "baseComponent": "glucoseBarChart",
       "parameters": {
-        "dataFile": "./data/glucose_by_day_of_week.csv",
-        "title": "Average Glucose by Day of Week",
+        "dataFile": "./data/glucose_by_day_first_2_weeks.csv",
+        "title": "Average Glucose by Day (First 2 Weeks)",
         "color": "#339af0",
         "thresholdLow": 70,
         "thresholdHigh": 180,
-        "xLabel": "Day of Week"
+        "xLabel": "Day"
       },
       "response": [
         {
-          "id": "viz_readability_day_of_week",
+          "id": "viz_readability_day_bar_2weeks",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -731,11 +609,11 @@
         }
       ]
     },
-    "glucose-hour-barchart": {
+    "glucose-hour-bar-first-2weeks": {
       "baseComponent": "glucoseBarChart",
       "parameters": {
-        "dataFile": "./data/glucose_by_hour.csv",
-        "title": "Average Glucose by Hour",
+        "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
+        "title": "Average Glucose by Hour (First 2 Weeks)",
         "color": "#20c997",
         "thresholdLow": 70,
         "thresholdHigh": 180,
@@ -743,7 +621,7 @@
       },
       "response": [
         {
-          "id": "viz_readability_hour",
+          "id": "viz_readability_hour_bar_2weeks",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -769,6 +647,73 @@
             "During my appointment, I would easily retrieve information from this visualization.",
             "When reviewing this visualization with my clinician, I would find important data features visible.",
             "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-chart-comparison": {
+      "baseComponent": "glucoseChartComparison",
+      "instruction": "Please review all four chart visualizations below.",
+      "parameters": {
+        "chartA": {
+          "type": "line",
+          "dataFile": "./data/glucose_by_day_first_2_weeks.csv",
+          "title": "Average Glucose by Day (First 2 Weeks)",
+          "color": "#4c6ef5",
+          "thresholdLow": 70,
+          "thresholdHigh": 180
+        },
+        "chartB": {
+          "type": "line",
+          "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
+          "title": "Average Glucose by Hour (First 2 Weeks)",
+          "color": "#15aabf",
+          "thresholdLow": 70,
+          "thresholdHigh": 180
+        },
+        "chartC": {
+          "type": "bar",
+          "dataFile": "./data/glucose_by_day_first_2_weeks.csv",
+          "title": "Average Glucose by Day (First 2 Weeks)",
+          "color": "#339af0",
+          "thresholdLow": 70,
+          "thresholdHigh": 180,
+          "xLabel": "Day"
+        },
+        "chartD": {
+          "type": "bar",
+          "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
+          "title": "Average Glucose by Hour (First 2 Weeks)",
+          "color": "#20c997",
+          "thresholdLow": 70,
+          "thresholdHigh": 180,
+          "xLabel": "Hour"
+        }
+      },
+      "response": [
+        {
+          "id": "preferred_chart",
+          "prompt": "Which chart do you prefer for viewing your glucose data?",
+          "required": true,
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            {
+              "label": "Chart A",
+              "value": "chart_a"
+            },
+            {
+              "label": "Chart B",
+              "value": "chart_b"
+            },
+            {
+              "label": "Chart C",
+              "value": "chart_c"
+            },
+            {
+              "label": "Chart D",
+              "value": "chart_d"
+            }
           ]
         }
       ]
@@ -818,13 +763,11 @@
       "minivlat-intro",
       "$mini-vlat.se.full",
       "glucose-intro",
-      "glucose-7day-chart",
-      "glucose-14day-chart",
-      "glucose-14day-percentile-chart",
-      "glucose-30day-chart",
-      "glucose-90day-chart",
-      "glucose-dayofweek-barchart",
-      "glucose-hour-barchart",
+      "glucose-day-line-first-2weeks",
+      "glucose-hour-line-first-2weeks",
+      "glucose-day-bar-first-2weeks",
+      "glucose-hour-bar-first-2weeks",
+      "glucose-chart-comparison",
       "glucose-conclusion",
       "post-study-questionnaire"
     ]
