@@ -24,7 +24,7 @@ const MARGIN = {
 
 type Datum = { label: string; rawLabel: string; value: number };
 
-const labelKeys = ['Date Range', 'Day', 'Hour', 'label'];
+const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'label'];
 
 const getLabelKey = (row: d3.DSVRowString<string>) =>
   labelKeys.find((key) => key in row) || 'label';
@@ -38,6 +38,7 @@ export default function LineChart({
 }: StimulusParams<LineChartParams>) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<Datum[] | null>(null);
+  const [xAxisLabel, setXAxisLabel] = useState<string>('Date');
 
   const strokeColor = parameters.color || '#4c6ef5';
   const low = parameters.thresholdLow ?? 70;
@@ -61,6 +62,7 @@ export default function LineChart({
 
       const labelKey = getLabelKey(rows[0]);
       const valueKey = getValueKey(rows[0]);
+      setXAxisLabel(parameters.xLabel || labelKey);
       const shouldCleanLabel = labelKey === 'Date Range';
 
       const parsed = rows
@@ -276,7 +278,7 @@ export default function LineChart({
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
       .style('font-weight', 'bold')
-      .text('Date Range');
+      .text(xAxisLabel);
 
     root
       .append('text')
@@ -287,7 +289,7 @@ export default function LineChart({
       .style('font-size', '16px')
       .style('font-weight', 'bold')
       .text('Glucose Level (mg/dL)');
-  }, [data, high, low, strokeColor, parameters.title]);
+  }, [data, high, low, strokeColor, parameters.title, xAxisLabel]);
 
   useEffect(() => {
     if (!setAnswer) return;
