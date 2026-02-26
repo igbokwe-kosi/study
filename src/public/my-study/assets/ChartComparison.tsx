@@ -98,10 +98,9 @@ export default function ChartComparison({
           margin: '0 auto',
         }}
       >
-        {renderChart(parameters.chartA, 'A')}
-        {renderChart(parameters.chartB, 'B')}
-        {renderChart(parameters.chartC, 'C')}
-        {renderChart(parameters.chartD, 'D')}
+        {Object.entries(parameters || {})
+          .filter(([, cfg]) => cfg != null)
+          .map(([key, cfg]) => renderChart(cfg as any, key.slice(-1).toUpperCase()))}
       </div>
     </div>
   );

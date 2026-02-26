@@ -24,7 +24,7 @@ const MARGIN = {
 
 type Datum = { label: string; rawLabel: string; value: number };
 
-const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'label'];
+const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'Hour Range', 'label'];
 
 const getLabelKey = (row: d3.DSVRowString<string>) =>
   labelKeys.find((key) => key in row) || 'label';

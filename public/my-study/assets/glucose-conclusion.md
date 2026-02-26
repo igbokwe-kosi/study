@@ -1,12 +1,12 @@
 # Thank You!
 
-Thank you for completing this comprehensive assessment study!
+Thank you for completing this assessment study!
 
 You have successfully completed three important sections:
 
 1. **Demographic Information** - Provided insights into your background and health context
 2. **Visualization Literacy Assessment** - Assessed your general ability to understand visual representations of data
-3. **Glucose Visualization Assessment** - Evaluated how well glucose data can be presented during clinical consultations
+3. **Glucose Visualization Assessment** - Reviewed two line-chart visualizations (daily and hourly) of glucose data covering the first 7 days
 
 Your feedback from all three sections will be invaluable in helping us:
 
