@@ -477,18 +477,18 @@
       "path": "my-study/assets/glucose-intro.md",
       "response": []
     },
-    "glucose-day-line-first-7-days": {
+    "glucose-line-001-point-per-day": {
       "baseComponent": "glucoseLineChart",
       "parameters": {
-        "dataFile": "./data/glucose_by_day_first_7_days.csv",
-        "title": "Average Glucose by Day (Past 7 days)",
+        "dataFile": "./data/glucose_001_point_per_day.csv",
+        "title": "Average Glucose (1 point per day)",
         "color": "#4c6ef5",
         "thresholdLow": 70,
         "thresholdHigh": 180
       },
       "response": [
         {
-          "id": "viz_readability_day_line_2weeks",
+          "id": "viz_readability_glucose_001_point_per_day",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -518,18 +518,141 @@
         }
       ]
     },
-    "glucose-hour-line-first-7-days": {
+    "glucose-line-002-points-per-day": {
       "baseComponent": "glucoseLineChart",
       "parameters": {
-        "dataFile": "./data/glucose_by_hour_first_7_days.csv",
-        "title": "Average Glucose by Hour (Past 7 days)",
+        "dataFile": "./data/glucose_002_points_per_day.csv",
+        "title": "Average Glucose (2 points per day)",
         "color": "#15aabf",
         "thresholdLow": 70,
         "thresholdHigh": 180
       },
       "response": [
         {
-          "id": "viz_readability_hour_line_2weeks",
+          "id": "viz_readability_glucose_002_points_per_day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-line-004-points-per-day": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_004_points_per_day.csv",
+        "title": "Average Glucose (4 points per day)",
+        "color": "#845ef7",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_glucose_004_points_per_day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-line-006-points-per-day": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_006_points_per_day.csv",
+        "title": "Average Glucose (6 points per day)",
+        "color": "#12b886",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_glucose_006_points_per_day",
+          "prompt": "Please rate your agreement with the following statements about this visualization:",
+          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
+          "location": "belowStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "1 — Strongly disagree",
+            "2 — Disagree",
+            "3 — Slightly disagree",
+            "4 — Neutral",
+            "5 — Slightly agree",
+            "6 — Agree",
+            "7 — Strongly agree"
+          ],
+          "questionOptions": [
+            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
+            "During my appointment, I would easily understand how the data is represented in this visualization.",
+            "During conversations with my clinician, I would easily understand this visualization.",
+            "When reviewing this visualization with my clinician, I would not find it messy.",
+            "When reviewing this visualization with my clinician, I would not find it crowded.",
+            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
+            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
+            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
+            "During my appointment, I would easily retrieve information from this visualization.",
+            "When reviewing this visualization with my clinician, I would find important data features visible.",
+            "During discussions with my clinician, I would clearly see important data features in this visualization."
+          ]
+        }
+      ]
+    },
+    "glucose-line-024-points-per-day": {
+      "baseComponent": "glucoseLineChart",
+      "parameters": {
+        "dataFile": "./data/glucose_024_points_per_day.csv",
+        "title": "Average Glucose (24 points per day)",
+        "color": "#fab005",
+        "thresholdLow": 70,
+        "thresholdHigh": 180
+      },
+      "response": [
+        {
+          "id": "viz_readability_glucose_024_points_per_day",
           "prompt": "Please rate your agreement with the following statements about this visualization:",
           "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
           "location": "belowStimulus",
@@ -561,21 +684,45 @@
     },
     "glucose-chart-comparison": {
       "baseComponent": "glucoseChartComparison",
-      "instruction": "Please review the chart variations below and choose the one you prefer.",
+      "instruction": "Please review all five chart variations below and choose the one you prefer.",
       "parameters": {
         "chartA": {
           "type": "line",
-          "dataFile": "./data/glucose_by_day_first_7_days.csv",
-          "title": "Average Glucose by Day (Past 7 days)",
+          "dataFile": "./data/glucose_001_point_per_day.csv",
+          "title": "Average Glucose (1 point per day)",
           "color": "#4c6ef5",
           "thresholdLow": 70,
           "thresholdHigh": 180
         },
         "chartB": {
           "type": "line",
-          "dataFile": "./data/glucose_by_hour_first_7_days.csv",
-          "title": "Average Glucose by Hour (Past 7 days)",
+          "dataFile": "./data/glucose_002_points_per_day.csv",
+          "title": "Average Glucose (2 points per day)",
           "color": "#15aabf",
+          "thresholdLow": 70,
+          "thresholdHigh": 180
+        },
+        "chartC": {
+          "type": "line",
+          "dataFile": "./data/glucose_004_points_per_day.csv",
+          "title": "Average Glucose (4 points per day)",
+          "color": "#845ef7",
+          "thresholdLow": 70,
+          "thresholdHigh": 180
+        },
+        "chartD": {
+          "type": "line",
+          "dataFile": "./data/glucose_006_points_per_day.csv",
+          "title": "Average Glucose (6 points per day)",
+          "color": "#12b886",
+          "thresholdLow": 70,
+          "thresholdHigh": 180
+        },
+        "chartE": {
+          "type": "line",
+          "dataFile": "./data/glucose_024_points_per_day.csv",
+          "title": "Average Glucose (24 points per day)",
+          "color": "#fab005",
           "thresholdLow": 70,
           "thresholdHigh": 180
         }
@@ -589,12 +736,24 @@
           "type": "radio",
           "options": [
             {
-              "label": "Chart A",
+              "label": "Chart A (1 point per day)",
               "value": "chart_a"
             },
             {
-              "label": "Chart B",
+              "label": "Chart B (2 points per day)",
               "value": "chart_b"
+            },
+            {
+              "label": "Chart C (4 points per day)",
+              "value": "chart_c"
+            },
+            {
+              "label": "Chart D (6 points per day)",
+              "value": "chart_d"
+            },
+            {
+              "label": "Chart E (24 points per day)",
+              "value": "chart_e"
             }
           ]
         }
@@ -646,8 +805,11 @@
       "minivlat-intro",
       "$mini-vlat.se.full",
       "glucose-intro",
-      "glucose-day-line-first-7-days",
-      "glucose-hour-line-first-7-days",
+      "glucose-line-001-point-per-day",
+      "glucose-line-002-points-per-day",
+      "glucose-line-004-points-per-day",
+      "glucose-line-006-points-per-day",
+      "glucose-line-024-points-per-day",
       "glucose-chart-comparison",
       "glucose-conclusion",
       "post-study-questionnaire"

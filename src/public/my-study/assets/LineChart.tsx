@@ -13,8 +13,8 @@ type LineChartParams = {
   yLabel?: string;
 };
 
-const SVG_WIDTH = 900;
-const SVG_HEIGHT = 520;
+const SVG_WIDTH = 1000;
+const SVG_HEIGHT = 400;
 const MARGIN = {
   top: 50,
   right: 30,
@@ -24,7 +24,7 @@ const MARGIN = {
 
 type Datum = { label: string; rawLabel: string; value: number };
 
-const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'Hour Range', 'label'];
+const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'Hour Range', 'label', 'Date/Time'];
 
 const getLabelKey = (row: d3.DSVRowString<string>) =>
   labelKeys.find((key) => key in row) || 'label';
@@ -104,11 +104,25 @@ export default function LineChart({
       .scaleLinear()
       .domain([yMin - 10, yMax + 10])
       .range([height, 0]);
+
+    const pointCount = data.length;
+    const likelyPointsPerDay = Math.round(pointCount / 7);
+    const hideDenseXAxisTickLabels = likelyPointsPerDay >= 6;
+    const xAxisTitleOffset =
+      likelyPointsPerDay === 2 || likelyPointsPerDay === 4 ? 130 : 90;
+
+    const getXPadding = () => {
+      if (pointCount <= 7) return 1.2;
+      if (pointCount <= 14) return 0.9;
+      if (pointCount <= 42) return 0.65;
+      return 0.4;
+    };
+
     const x = d3
       .scalePoint<string>()
       .domain(data.map((d) => d.label))
       .range([0, width])
-      .padding(0.5);
+      .padding(getXPadding());
 
     const line = d3
       .line<Datum>()
@@ -245,15 +259,24 @@ export default function LineChart({
         tooltip.style('opacity', '0');
       });
 
-    root
+    const xAxisGroup = root
       .append('g')
       .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x).tickFormat((d) => d.toString()))
-      .selectAll('text')
-      .attr('transform', 'rotate(40)')
-      .style('text-anchor', 'start')
-      .style('font-size', '17px')
-      .style('font-weight', 'bold');
+      .call(d3.axisBottom(x).tickFormat((d) => d.toString()));
+
+    if (hideDenseXAxisTickLabels) {
+      xAxisGroup.selectAll('text').style('display', 'none');
+      xAxisGroup.selectAll('line').style('display', 'none');
+      xAxisGroup.selectAll('path').style('display', 'none');
+    } else {
+      const useTiltedLabels = pointCount > 10;
+      xAxisGroup
+        .selectAll('text')
+        .attr('transform', useTiltedLabels ? 'rotate(40)' : 'rotate(0)')
+        .style('text-anchor', useTiltedLabels ? 'start' : 'middle')
+        .style('font-size', '17px')
+        .style('font-weight', 'bold');
+    }
 
     root
       .append('g')
@@ -274,7 +297,7 @@ export default function LineChart({
     root
       .append('text')
       .attr('x', width / 2)
-      .attr('y', height + 90)
+      .attr('y', height + xAxisTitleOffset)
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
       .style('font-weight', 'bold')
