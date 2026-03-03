@@ -6,7 +6,7 @@ You have successfully completed three important sections:
 
 1. **Demographic Information** - Provided insights into your background and health context
 2. **Visualization Literacy Assessment** - Assessed your general ability to understand visual representations of data
-3. **Glucose Visualization Assessment** - Reviewed two line-chart visualizations (daily and hourly) of glucose data covering the first 7 days
+3. **Glucose Visualization Assessment** - Reviewed five line-chart visualizations (1, 2, 4, 6, and 24 points per day) of glucose data covering the first 7 days
 
 Your feedback from all three sections will be invaluable in helping us:
 
