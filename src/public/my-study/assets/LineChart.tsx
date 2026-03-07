@@ -32,6 +32,8 @@ const getLabelKey = (row: d3.DSVRowString<string>) =>
 const getValueKey = (row: d3.DSVRowString<string>) =>
   (['Average Glucose level', 'value'] as const).find((key) => key in row) || 'value';
 
+const MGDL_TO_MMOLL = 18;
+
 export default function LineChart({
   parameters,
   setAnswer,
@@ -41,8 +43,12 @@ export default function LineChart({
   const [xAxisLabel, setXAxisLabel] = useState<string>('Date');
 
   const strokeColor = parameters.color || '#4c6ef5';
-  const low = parameters.thresholdLow ?? 70;
-  const high = parameters.thresholdHigh ?? 180;
+  const normalizeThreshold = (value: number | undefined, fallbackMmol: number) => {
+    const resolved = value ?? fallbackMmol;
+    return resolved > 30 ? resolved / MGDL_TO_MMOLL : resolved;
+  };
+  const low = normalizeThreshold(parameters.thresholdLow, 3.9);
+  const high = normalizeThreshold(parameters.thresholdHigh, 10.0);
 
   useEffect(() => {
     let mounted = true;
@@ -68,10 +74,11 @@ export default function LineChart({
       const parsed = rows
         .map((d) => {
           const raw = (d[labelKey] as string) || '';
+          const valueMgdl = Number(d[valueKey] || 0);
           return {
             rawLabel: raw,
             label: shouldCleanLabel ? cleanLabel(raw) : raw,
-            value: Number(d[valueKey] || 0),
+            value: valueMgdl / MGDL_TO_MMOLL,
           };
         })
         .filter((d) => Number.isFinite(d.value));
@@ -100,9 +107,10 @@ export default function LineChart({
     const yMin = Math.min(low, yExtent[0] ?? 0);
     const yMax = Math.max(high, yExtent[1] ?? 0);
 
+    const yPadding = Math.max(0.8, (yMax - yMin) * 0.1);
     const y = d3
       .scaleLinear()
-      .domain([yMin - 10, yMax + 10])
+      .domain([Math.max(0, yMin - yPadding), yMax + yPadding])
       .range([height, 0]);
 
     const pointCount = data.length;
@@ -110,6 +118,30 @@ export default function LineChart({
     const hideDenseXAxisTickLabels = likelyPointsPerDay >= 6;
     const xAxisTitleOffset =
       likelyPointsPerDay === 2 || likelyPointsPerDay === 4 ? 130 : 90;
+
+    const getDayName = (label: string): string | null => {
+      const dayPattern = /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i;
+      const match = label.match(dayPattern);
+      return match ? match[1] : null;
+    };
+
+    const dayNamesInOrder = data
+      .map((d) => getDayName(d.label))
+      .filter((day): day is string => day !== null)
+      .filter((day, index, arr) => arr.indexOf(day) === index);
+
+    const dayColorScale = d3
+      .scaleOrdinal<string, string>()
+      .domain(dayNamesInOrder)
+      .range(['#e03131', '#f08c00', '#2f9e44', '#1c7ed6', '#7048e8', '#c2255c', '#0b7285']);
+
+    const useDayColors = likelyPointsPerDay > 1 && dayNamesInOrder.length > 1;
+
+    const getDatumColor = (datum: Datum) => {
+      if (!useDayColors) return strokeColor;
+      const day = getDayName(datum.label);
+      return day ? dayColorScale(day) : strokeColor;
+    };
 
     const getXPadding = () => {
       if (pointCount <= 7) return 1.2;
@@ -198,7 +230,7 @@ export default function LineChart({
           display.attr('stroke-width', 3).attr('stroke', hover);
           tooltip
             .style('opacity', '1')
-            .html(`<strong>${label}</strong><br/>${value} mg/dL`);
+            .html(`<strong>${label}</strong><br/>${value.toFixed(1)} mmol/L`);
         })
         .on('mousemove', (e: MouseEvent) => {
           tooltip
@@ -211,6 +243,35 @@ export default function LineChart({
         });
     });
 
+    const daySeparatorIndices: number[] = [];
+    for (let i = 1; i < data.length; i++) {
+      const prevDay = getDayName(data[i - 1].label);
+      const currentDay = getDayName(data[i].label);
+      
+      if (prevDay && currentDay && prevDay !== currentDay) {
+        daySeparatorIndices.push(i);
+      }
+    }
+
+    daySeparatorIndices.forEach((idx) => {
+      const prevLabel = data[idx - 1].label;
+      const currentLabel = data[idx].label;
+      const prevX = x(prevLabel) ?? 0;
+      const currentX = x(currentLabel) ?? 0;
+      const separatorX = (prevX + currentX) / 2;
+
+      root
+        .append('line')
+        .attr('x1', separatorX)
+        .attr('x2', separatorX)
+        .attr('y1', 0)
+        .attr('y2', height)
+        .attr('stroke', '#444444')
+        .attr('stroke-width', 1.5)
+        .attr('stroke-dasharray', '4,4')
+        .style('opacity', 0.6);
+    });
+
     root
       .append('path')
       .datum(data)
@@ -218,13 +279,27 @@ export default function LineChart({
       .attr('stroke', 'none')
       .attr('d', area);
 
-    root
-      .append('path')
-      .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', strokeColor)
-      .attr('stroke-width', 3)
-      .attr('d', line);
+    if (useDayColors) {
+      const groupedByDay = d3.group(data, (d) => getDayName(d.label) || '__none__');
+      groupedByDay.forEach((dayData, day) => {
+        if (dayData.length < 2) return;
+        root
+          .append('path')
+          .datum(dayData)
+          .attr('fill', 'none')
+          .attr('stroke', day === '__none__' ? strokeColor : dayColorScale(day))
+          .attr('stroke-width', 3)
+          .attr('d', line);
+      });
+    } else {
+      root
+        .append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', strokeColor)
+        .attr('stroke-width', 3)
+        .attr('d', line);
+    }
 
     root
       .selectAll('circle')
@@ -234,7 +309,7 @@ export default function LineChart({
       .attr('cx', (d) => x(d.label) ?? 0)
       .attr('cy', (d) => y(d.value))
       .attr('r', 5)
-      .attr('fill', strokeColor)
+      .attr('fill', (d) => getDatumColor(d))
       .style('cursor', 'pointer')
       .on('mouseenter', (event: MouseEvent, d: Datum) => {
         d3.select(event.currentTarget as SVGCircleElement)
@@ -244,7 +319,7 @@ export default function LineChart({
         tooltip
           .style('opacity', '1')
           .html(
-            `<strong>${d.rawLabel}</strong><br/>${d.value.toFixed(2)} mg/dL`,
+            `<strong>${d.rawLabel}</strong><br/>${d.value.toFixed(1)} mmol/L`,
           );
       })
       .on('mousemove', (event: MouseEvent) => {
@@ -268,6 +343,47 @@ export default function LineChart({
       xAxisGroup.selectAll('text').style('display', 'none');
       xAxisGroup.selectAll('line').style('display', 'none');
       xAxisGroup.selectAll('path').style('display', 'none');
+
+      // Add day labels for dense charts (6+ points per day)
+      const getDayName = (label: string): string | null => {
+        const dayPattern = /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i;
+        const match = label.match(dayPattern);
+        return match ? match[1] : null;
+      };
+
+      // Group data points by day
+      const dayGroups = new Map<string, number[]>();
+      data.forEach((d, i) => {
+        const day = getDayName(d.label);
+        if (day) {
+          if (!dayGroups.has(day)) {
+            dayGroups.set(day, []);
+          }
+          dayGroups.get(day)!.push(i);
+        }
+      });
+
+      // Add day label at the center of each day's data points
+      dayGroups.forEach((indices, day) => {
+        if (indices.length > 0) {
+          // Calculate center position for this day
+          const firstIdx = indices[0];
+          const lastIdx = indices[indices.length - 1];
+          const firstX = x(data[firstIdx].label) ?? 0;
+          const lastX = x(data[lastIdx].label) ?? 0;
+          const centerX = (firstX + lastX) / 2;
+
+          root
+            .append('text')
+            .attr('x', centerX)
+            .attr('y', height + 30)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '17px')
+            .style('font-weight', 'bold')
+            .style('fill', '#333')
+            .text(day);
+        }
+      });
     } else {
       const useTiltedLabels = pointCount > 10;
       xAxisGroup
@@ -311,7 +427,7 @@ export default function LineChart({
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
       .style('font-weight', 'bold')
-      .text('Glucose Level (mg/dL)');
+      .text('Glucose Level (mmol/L)');
   }, [data, high, low, strokeColor, parameters.title, xAxisLabel]);
 
   useEffect(() => {
