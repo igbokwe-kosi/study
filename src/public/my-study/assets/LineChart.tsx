@@ -34,6 +34,69 @@ const getValueKey = (row: d3.DSVRowString<string>) =>
 
 const MGDL_TO_MMOLL = 18;
 
+const DAY_TO_ABBR: Record<string, string> = {
+  Monday: 'Mon',
+  Tuesday: 'Tue',
+  Wednesday: 'Wed',
+  Thursday: 'Thu',
+  Friday: 'Fri',
+  Saturday: 'Sat',
+  Sunday: 'Sun',
+};
+
+const ABBR_DAYS = Object.values(DAY_TO_ABBR);
+const FULL_DAYS = Object.keys(DAY_TO_ABBR);
+
+const toAbbrevDay = (label: string) =>
+  label.replace(
+    new RegExp(`^(${FULL_DAYS.join('|')})\\b`, 'i'),
+    (matched) => DAY_TO_ABBR[matched.charAt(0).toUpperCase() + matched.slice(1).toLowerCase()] || matched,
+  );
+
+const addHoursToClock = (clock: string, deltaHours: number): string | null => {
+  const match = clock.match(/^(1[0-2]|[1-9])(am|pm)$/i);
+  if (!match) return null;
+  const hour = Number(match[1]);
+  const suffix = match[2].toLowerCase();
+  const hour24 = (hour % 12) + (suffix === 'pm' ? 12 : 0);
+  const next = (hour24 + deltaHours) % 24;
+  const nextSuffix = next >= 12 ? 'pm' : 'am';
+  const nextHour12 = next % 12 === 0 ? 12 : next % 12;
+  return `${nextHour12}${nextSuffix}`;
+};
+
+const formatLabelForDataset = (rawLabel: string, dataFile: string): string => {
+  const abbreviated = toAbbrevDay(rawLabel.trim());
+  const parts = abbreviated.split(/\s+/);
+  const day = parts[0];
+  const time = parts[1];
+
+  if (!ABBR_DAYS.includes(day) || !time) {
+    return abbreviated;
+  }
+
+  if (dataFile.includes('glucose_002_points_per_day')) {
+    const end = addHoursToClock(time, 12);
+    return end ? `${day} ${time} - ${end}` : abbreviated;
+  }
+
+  if (dataFile.includes('glucose_004_points_per_day')) {
+    const end = addHoursToClock(time, 6);
+    return end ? `${day} ${time} - ${end}` : abbreviated;
+  }
+
+  return abbreviated;
+};
+
+const getDayName = (label: string): string | null => {
+  const dayPattern = new RegExp(`^(${FULL_DAYS.join('|')}|${ABBR_DAYS.join('|')})\\b`, 'i');
+  const match = label.match(dayPattern);
+  if (!match) return null;
+  const found = match[1];
+  if (ABBR_DAYS.includes(found)) return found;
+  return DAY_TO_ABBR[found.charAt(0).toUpperCase() + found.slice(1).toLowerCase()] || null;
+};
+
 export default function LineChart({
   parameters,
   setAnswer,
@@ -74,10 +137,13 @@ export default function LineChart({
       const parsed = rows
         .map((d) => {
           const raw = (d[labelKey] as string) || '';
+          const formattedLabel = shouldCleanLabel
+            ? cleanLabel(raw)
+            : formatLabelForDataset(raw, parameters.dataFile);
           const valueMgdl = Number(d[valueKey] || 0);
           return {
-            rawLabel: raw,
-            label: shouldCleanLabel ? cleanLabel(raw) : raw,
+            rawLabel: formattedLabel,
+            label: formattedLabel,
             value: valueMgdl / MGDL_TO_MMOLL,
           };
         })
@@ -118,12 +184,6 @@ export default function LineChart({
     const hideDenseXAxisTickLabels = likelyPointsPerDay >= 6;
     const xAxisTitleOffset =
       likelyPointsPerDay === 2 || likelyPointsPerDay === 4 ? 130 : 90;
-
-    const getDayName = (label: string): string | null => {
-      const dayPattern = /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i;
-      const match = label.match(dayPattern);
-      return match ? match[1] : null;
-    };
 
     const dayNamesInOrder = data
       .map((d) => getDayName(d.label))
@@ -345,12 +405,6 @@ export default function LineChart({
       xAxisGroup.selectAll('path').style('display', 'none');
 
       // Add day labels for dense charts (6+ points per day)
-      const getDayName = (label: string): string | null => {
-        const dayPattern = /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i;
-        const match = label.match(dayPattern);
-        return match ? match[1] : null;
-      };
-
       // Group data points by day
       const dayGroups = new Map<string, number[]>();
       data.forEach((d, i) => {
