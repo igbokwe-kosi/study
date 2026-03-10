@@ -249,19 +249,8 @@
       "nextButtonLocation": "belowStimulus",
       "response": [
         {
-          "id": "diagnosed-diabetes",
-          "prompt": "Have you ever been told by a healthcare professional that you have diabetes or prediabetes?",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Yes",
-            "No"
-          ]
-        },
-        {
-          "id": "diabetes-type",
-          "prompt": "Which best describes you?",
+          "id": "diagnosis-category",
+          "prompt": "Which of the following best describes your diagnosis?",
           "required": true,
           "location": "aboveStimulus",
           "type": "radio",
@@ -273,195 +262,29 @@
           ]
         },
         {
-          "id": "diagnosis-year",
-          "prompt": "In what year were you diagnosed with diabetes or prediabetes? If this does not apply to you, please enter \"N/A\".",
-          "required": true,
-          "type": "shortText",
-          "location": "aboveStimulus"
-        },
-        {
-          "id": "last-a1c",
-          "prompt": "What was your last A1c number?",
-          "required": true,
-          "type": "shortText",
-          "location": "aboveStimulus"
-        },
-        {
-          "id": "insulin-use",
-          "prompt": "Do you use insulin? If yes, specify the method (e.g., multiple daily injections, insulin pump).",
-          "required": true,
-          "type": "shortText",
-          "location": "aboveStimulus"
-        },
-        {
-          "id": "a1c-timeframe",
-          "prompt": "A1C is a measure of your average blood glucose level for the past:",
+          "id": "insulin-use-frequency",
+          "prompt": "Do you currently use insulin?",
           "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
-            "Day",
-            "Week",
-            "6-12 weeks",
-            "6 months"
+            "Yes, every day",
+            "Yes, sometimes",
+            "No"
           ]
         },
         {
-          "id": "infection-effect",
-          "prompt": "What effect will an infection most likely have on blood glucose?",
+          "id": "glucose-monitor-device",
+          "prompt": "Which device do you most often use to monitor your glucose?",
           "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
-            "Lowers it",
-            "Raises it",
-            "Has no effect"
+            "Continuous glucose monitor",
+            "Fingerstick glucose meter",
+            "Both equally",
+            "I do not monitor my glucose"
           ]
-        },
-        {
-          "id": "flu-guidance",
-          "prompt": "If you are sick with the flu, you should:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Take less insulin",
-            "Drink less liquids",
-            "Eat more proteins",
-            "Test blood glucose more often"
-          ]
-        },
-        {
-          "id": "rapid-acting-low",
-          "prompt": "If you have taken rapid-acting insulin, you are most likely to have a low blood glucose reaction in:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Less than 2 hours",
-            "3-5 hours",
-            "6-12 hours",
-            "More than 13 hours"
-          ]
-        },
-        {
-          "id": "low-blood-glucose-action",
-          "prompt": "If you are beginning to have a low blood glucose reaction, you should:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Exercise",
-            "Lie down and rest",
-            "Drink some juice",
-            "Take rapid-acting insulin"
-          ]
-        },
-        {
-          "id": "low-glucose-cause",
-          "prompt": "A low blood glucose reaction may be caused by:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Too much insulin",
-            "Too little insulin",
-            "Too much food",
-            "Too little exercise"
-          ]
-        },
-        {
-          "id": "missed-breakfast-insulin",
-          "prompt": "You realize just before lunch that you forgot to take your insulin at breakfast. What should you do now?",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Skip lunch to lower your blood glucose",
-            "Take the insulin that you usually take at breakfast",
-            "Take twice as much insulin as you usually take at breakfast",
-            "Check your blood glucose level to decide how much insulin to take"
-          ]
-        },
-        {
-          "id": "skip-breakfast-effect",
-          "prompt": "If you take your morning insulin but skip breakfast, your blood glucose level will usually:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Increase",
-            "Decrease",
-            "Remain the same"
-          ]
-        },
-        {
-          "id": "high-glucose-cause",
-          "prompt": "High blood glucose may be caused by:",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Not enough insulin",
-            "Skipping meals",
-            "Delaying your snack",
-            "Skipping your exercise"
-          ]
-        },
-        {
-          "id": "raise-low-glucose",
-          "prompt": "Which item is used to quickly raise low blood glucose?",
-          "required": true,
-          "location": "aboveStimulus",
-          "type": "radio",
-          "options": [
-            "Insulin",
-            "Metformin",
-            "Juice or glucose tablets",
-            "Long-acting insulin"
-          ]
-        }
-      ],
-      "correctAnswer": [
-        {
-          "id": "a1c-timeframe",
-          "answer": "6-12 weeks"
-        },
-        {
-          "id": "infection-effect",
-          "answer": "Raises it"
-        },
-        {
-          "id": "flu-guidance",
-          "answer": "Test blood glucose more often"
-        },
-        {
-          "id": "rapid-acting-low",
-          "answer": "Less than 2 hours"
-        },
-        {
-          "id": "low-blood-glucose-action",
-          "answer": "Drink some juice"
-        },
-        {
-          "id": "low-glucose-cause",
-          "answer": "Too much insulin"
-        },
-        {
-          "id": "missed-breakfast-insulin",
-          "answer": "Check your blood glucose level to decide how much insulin to take"
-        },
-        {
-          "id": "skip-breakfast-effect",
-          "answer": "Decrease"
-        },
-        {
-          "id": "high-glucose-cause",
-          "answer": "Not enough insulin"
-        },
-        {
-          "id": "raise-low-glucose",
-          "answer": "Juice or glucose tablets"
         }
       ]
     },
@@ -486,37 +309,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_001_point_per_day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-line-002-points-per-day": {
       "baseComponent": "glucoseLineChart",
@@ -527,37 +320,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_002_points_per_day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-line-004-points-per-day": {
       "baseComponent": "glucoseLineChart",
@@ -568,37 +331,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_004_points_per_day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-line-006-points-per-day": {
       "baseComponent": "glucoseLineChart",
@@ -609,37 +342,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_006_points_per_day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-line-024-points-per-day": {
       "baseComponent": "glucoseLineChart",
@@ -650,37 +353,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_024_points_per_day",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-line-hourly": {
       "baseComponent": "glucoseLineChart",
@@ -691,37 +364,7 @@
         "thresholdLow": 3.9,
         "thresholdHigh": 10.0
       },
-      "response": [
-        {
-          "id": "viz_readability_glucose_hourly",
-          "prompt": "Please rate your agreement with the following statements about this visualization:",
-          "secondaryText": "1 — Strongly disagree · 7 — Strongly agree",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "1 — Strongly disagree",
-            "2 — Disagree",
-            "3 — Slightly disagree",
-            "4 — Neutral",
-            "5 — Slightly agree",
-            "6 — Agree",
-            "7 — Strongly agree"
-          ],
-          "questionOptions": [
-            "During a discussion with my clinician, it would be obvious to me how to read this visualization.",
-            "During my appointment, I would easily understand how the data is represented in this visualization.",
-            "During conversations with my clinician, I would easily understand this visualization.",
-            "When reviewing this visualization with my clinician, I would not find it messy.",
-            "When reviewing this visualization with my clinician, I would not find it crowded.",
-            "When discussing this visualization with my clinician, I would not find distracting parts in it.",
-            "When talking with my clinician, I would be able to easily find specific elements in this visualization.",
-            "During a clinical discussion, I would easily identify the relevant information in this visualization.",
-            "During my appointment, I would easily retrieve information from this visualization.",
-            "When reviewing this visualization with my clinician, I would find important data features visible.",
-            "During discussions with my clinician, I would clearly see important data features in this visualization."
-          ]
-        }
-      ]
+      "response": []
     },
     "glucose-chart-comparison": {
       "baseComponent": "glucoseChartComparison",
@@ -825,25 +468,44 @@
       "nextButtonLocation": "belowStimulus",
       "response": [
         {
-          "id": "years-since-diagnosis",
-          "prompt": "How many years ago were you first diagnosed with diabetes or prediabetes, if applicable?",
-          "required": false,
-          "type": "shortText",
-          "location": "aboveStimulus"
+          "id": "post-group-fit",
+          "prompt": "Which group fits you best?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "People with Type 1 diabetes",
+            "People with Type 2 diabetes",
+            "People with prediabetes",
+            "People without diabetes or prediabetes"
+          ]
         },
         {
-          "id": "current-treatment",
-          "prompt": "What is your current diabetes treatment?",
-          "required": false,
-          "type": "shortText",
-          "location": "aboveStimulus"
+          "id": "post-blood-sugar-management",
+          "prompt": "Which of the following are part of your usual blood sugar management? Select all that apply.",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "checkbox",
+          "options": [
+            "Insulin",
+            "Diabetes pills",
+            "Non insulin injection medication",
+            "Food or lifestyle changes only",
+            "I do not use anything to manage blood sugar"
+          ]
         },
         {
-          "id": "last-hba1c",
-          "prompt": "What was the result of your last HbA1c?",
-          "required": false,
-          "type": "shortText",
-          "location": "aboveStimulus"
+          "id": "post-glucose-information-source",
+          "prompt": "In daily life, how do you usually get glucose information?",
+          "required": true,
+          "location": "aboveStimulus",
+          "type": "radio",
+          "options": [
+            "A continuous glucose monitor",
+            "A fingerstick glucose meter",
+            "Either one, depending on the situation",
+            "I do not usually check it"
+          ]
         }
       ]
     }
