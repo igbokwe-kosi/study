@@ -193,7 +193,7 @@ export default function LineChart({
     const dayColorScale = d3
       .scaleOrdinal<string, string>()
       .domain(dayNamesInOrder)
-      .range(['#e03131', '#f08c00', '#2f9e44', '#1c7ed6', '#7048e8', '#c2255c', '#0b7285']);
+      .range(['#65350f', '#f08c00', '#9e2f61', '#1c7ed6', '#7048e8', '#c2255c', '#0b7285']);
 
     const useDayColors = likelyPointsPerDay > 1 && dayNamesInOrder.length > 1;
 
