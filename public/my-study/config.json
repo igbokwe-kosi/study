@@ -3,10 +3,15 @@
   "studyMetadata": {
     "title": "Combined Study - Demographics & Visualization Literacy",
     "version": "1.0",
-    "authors": ["Kosisochukwu Igbokwe"],
+    "authors": [
+      "Kosisochukwu Igbokwe"
+    ],
     "date": "2026-01-25",
     "description": "A study consisting of a demographic questionnaire and a visualization literacy assessment focused on glucose data.",
-    "organizations": ["Interactions Lab", "University of Calgary"]
+    "organizations": [
+      "Interactions Lab",
+      "University of Calgary"
+    ]
   },
   "uiConfig": {
     "contactEmail": "kosiso.igbokwe@ucalgary.ca",
@@ -35,98 +40,100 @@
       "response": []
     }
   },
-  "importedLibraries": ["mini-vlat"],
+  "importedLibraries": [
+    "mini-vlat"
+  ],
   "components": {
     "introduction": {
       "type": "markdown",
       "path": "my-study/assets/introduction.md",
       "response": []
     },
-        "visualization-consent": {
+    "visualization-consent": {
       "type": "markdown",
       "path": "my-study/assets/consent.md",
       "response": [
         {
-              "id": "participant-name",
-              "prompt": "Participant name (please print):",
-              "location": "belowStimulus",
-              "type": "shortText",
-              "placeholder": "Your full name",
-              "required": true
-            },
-            {
-              "id": "participant-signature",
-              "prompt": "Participant signature:",
-              "location": "belowStimulus",
-              "type": "shortText",
-              "required": true
-            },
-            {
-              "id": "userInitials",
-              "prompt": "Please type your initials below to confirm consent for the visualization assessment.",
-              "location": "belowStimulus",
-              "type": "shortText",
-              "placeholder": "Your initials",
-              "required": true
-            },
-            {
-              "id": "anonymous-preference",
-              "prompt": "I wish to remain anonymous:",
-              "location": "belowStimulus",
-              "type": "radio",
-              "options": [
-                "Yes",
-                "No"
-              ],
-              "required": true
-            },
-            {
-              "id": "pseudonym-preference",
-              "prompt": "I wish to remain anonymous, but you may refer to me by a pseudonym:",
-              "location": "belowStimulus",
-              "type": "radio",
-              "options": [
-                "Yes",
-                "No"
-              ],
-              "required": true
-            },
-            {
-              "id": "pseudonym",
-              "prompt": "The pseudonym I chose for myself is:",
-              "location": "belowStimulus",
-              "type": "shortText",
-              "required": false
-            },
-            {
-              "id": "quote-with-name",
-              "prompt": "You may quote me and use my name:",
-              "location": "belowStimulus",
-              "type": "radio",
-              "options": [
-                "Yes",
-                "No"
-              ],
-              "required": true
-            },
-            {
-              "id": "follow-up-contact",
-              "prompt": "You may contact me for a follow-up interview:",
-              "location": "belowStimulus",
-              "type": "radio",
-              "options": [
-                "Yes",
-                "No"
-              ],
-              "required": true
-            },
-            {
-              "id": "follow-up-email",
-              "prompt": "If yes, please provide an email address where we can reach you:",
-              "location": "belowStimulus",
-              "type": "shortText",
-              "required": false
-            }
+          "id": "participant-name",
+          "prompt": "Participant name (please print):",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Your full name",
+          "required": true
+        },
+        {
+          "id": "participant-signature",
+          "prompt": "Participant signature:",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": true
+        },
+        {
+          "id": "userInitials",
+          "prompt": "Please type your initials below to confirm consent for the visualization assessment.",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "placeholder": "Your initials",
+          "required": true
+        },
+        {
+          "id": "anonymous-preference",
+          "prompt": "I wish to remain anonymous:",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        },
+        {
+          "id": "pseudonym-preference",
+          "prompt": "I wish to remain anonymous, but you may refer to me by a pseudonym:",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        },
+        {
+          "id": "pseudonym",
+          "prompt": "The pseudonym I chose for myself is:",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        },
+        {
+          "id": "quote-with-name",
+          "prompt": "You may quote me and use my name:",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        },
+        {
+          "id": "follow-up-contact",
+          "prompt": "You may contact me for a follow-up interview:",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        },
+        {
+          "id": "follow-up-email",
+          "prompt": "If yes, please provide an email address where we can reach you:",
+          "location": "belowStimulus",
+          "type": "shortText",
+          "required": false
+        }
       ]
     },
     "demographics-personal": {
@@ -241,7 +248,6 @@
         }
       ]
     },
-
     "diabetes-verification-test": {
       "type": "questionnaire",
       "instruction": "Diabetes Verification Test",
@@ -288,12 +294,37 @@
         }
       ]
     },
-
-
     "minivlat-intro": {
       "type": "markdown",
       "path": "my-study/assets/minivlat-intro.md",
       "response": []
+    },
+    "social-descriptors-likert": {
+      "type": "questionnaire",
+      "response": [
+        {
+          "id": "social-descriptors-matrix",
+          "prompt": "Indicate the extent to which each statement describes you.",
+          "secondaryText": "Six-point Likert scale: Strongly Disagree, Disagree, Slightly Disagree, Slightly Agree, Agree, Strongly Agree",
+          "location": "aboveStimulus",
+          "type": "matrix-radio",
+          "answerOptions": [
+            "Strongly Disagree",
+            "Disagree",
+            "Slightly Disagree",
+            "Slightly Agree",
+            "Agree",
+            "Strongly Agree"
+          ],
+          "questionOptions": [
+            "Have a good word for everyone",
+            "Retreat from others",
+            "Avoid contacts with others",
+            "Respect others"
+          ],
+          "required": true
+        }
+      ]
     },
     "glucose-intro": {
       "type": "markdown",
@@ -304,10 +335,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v1.csv",
-        "title": "Average Glucose (1 point per day - V1)",
-        "color": "#4c6ef5",
+        "title": "Daily average of blood glucose level for 7 days (V1)",
+        "color": "#0072B2",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -324,11 +355,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -338,10 +368,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v2.csv",
-        "title": "Average Glucose (1 point per day - V2)",
-        "color": "#4c6ef5",
+        "title": "Daily average of blood glucose level for 7 days (V2)",
+        "color": "#0072B2",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -358,11 +388,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -372,10 +401,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v3.csv",
-        "title": "Average Glucose (1 point per day - V3)",
-        "color": "#4c6ef5",
+        "title": "Daily average of blood glucose level for 7 days (V3)",
+        "color": "#0072B2",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -392,11 +421,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -406,10 +434,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v1.csv",
-        "title": "Average Glucose (2 points per day - V1)",
-        "color": "#15aabf",
+        "title": "Every 12-hour average of blood glucose level for 7 days (V1)",
+        "color": "#E69F00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -426,11 +454,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -440,10 +467,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v2.csv",
-        "title": "Average Glucose (2 points per day - V2)",
-        "color": "#15aabf",
+        "title": "Every 12-hour average of blood glucose level for 7 days (V2)",
+        "color": "#E69F00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -460,11 +487,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -474,10 +500,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v3.csv",
-        "title": "Average Glucose (2 points per day - V3)",
-        "color": "#15aabf",
+        "title": "Every 12-hour average of blood glucose level for 7 days (V3)",
+        "color": "#E69F00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -494,11 +520,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -508,10 +533,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v1.csv",
-        "title": "Average Glucose (4 points per day - V1)",
-        "color": "#845ef7",
+        "title": "Every 6-hour average of blood glucose level for 7 days (V1)",
+        "color": "#009E73",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -528,11 +553,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -542,10 +566,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v2.csv",
-        "title": "Average Glucose (4 points per day - V2)",
-        "color": "#845ef7",
+        "title": "Every 6-hour average of blood glucose level for 7 days (V2)",
+        "color": "#009E73",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -562,11 +586,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -576,10 +599,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v3.csv",
-        "title": "Average Glucose (4 points per day - V3)",
-        "color": "#845ef7",
+        "title": "Every 6-hour average of blood glucose level for 7 days (V3)",
+        "color": "#009E73",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -596,11 +619,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -610,10 +632,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v1.csv",
-        "title": "Average Glucose (24 points per day - V1)",
-        "color": "#fab005",
+        "title": "Hourly average of blood glucose level for 7 days (V1)",
+        "color": "#D55E00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -630,11 +652,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -644,10 +665,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v2.csv",
-        "title": "Average Glucose (24 points per day - V2)",
-        "color": "#fab005",
+        "title": "Hourly average of blood glucose level for 7 days (V2)",
+        "color": "#D55E00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -664,11 +685,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -678,10 +698,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v3.csv",
-        "title": "Average Glucose (24 points per day - V3)",
-        "color": "#fab005",
+        "title": "Hourly average of blood glucose level for 7 days (V3)",
+        "color": "#D55E00",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -698,11 +718,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -712,10 +731,10 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
-        "title": "Average Glucose by Hour (First 2 Weeks)",
-        "color": "#e64980",
+        "title": "Hourly average of blood glucose level for 7 days",
+        "color": "#56B4E9",
         "thresholdLow": 3.9,
-        "thresholdHigh": 10.0
+        "thresholdHigh": 8
       },
       "response": [
         {
@@ -732,11 +751,10 @@
             "Strongly Agree"
           ],
           "questionOptions": [
-            "The visualization transparently includes all important elements of the data",
-            "I find it easy to understand this visualization",
-            "I would likely use this visualization and its information in my daily life",
-            "I would likely share this visualization with my family, friends or on social media",
-            "I trust this visualization"
+            "I find this visualization easy to understand",
+            "I find this visualization difficult to use",
+            "I am skeptical about the information presented in this visualization",
+            "I trust this data visualization"
           ],
           "required": true
         }
@@ -744,94 +762,85 @@
     },
     "glucose-chart-comparison": {
       "baseComponent": "glucoseChartComparison",
-      "instruction": "Please review all six chart variations below and choose the one you prefer.",
+      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
       "parameters": {
         "chartA": {
           "type": "line",
-          "dataFile": "./data/glucose_001_point_per_day.csv",
-          "title": "Average Glucose (1 point per day)",
-          "color": "#4c6ef5",
+          "dataFile": "./data/glucose_001_point_per_day_v1.csv",
+          "title": "Daily average of blood glucose level for 7 days (V1)",
+          "color": "#0072B2",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         },
         "chartB": {
           "type": "line",
-          "dataFile": "./data/glucose_002_points_per_day.csv",
-          "title": "Average Glucose (2 points per day)",
-          "color": "#15aabf",
+          "dataFile": "./data/glucose_002_points_per_day_v1.csv",
+          "title": "Every 12-hour average of blood glucose level for 7 days (V1)",
+          "color": "#E69F00",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         },
         "chartC": {
           "type": "line",
-          "dataFile": "./data/glucose_004_points_per_day.csv",
-          "title": "Average Glucose (4 points per day)",
-          "color": "#845ef7",
+          "dataFile": "./data/glucose_004_points_per_day_v1.csv",
+          "title": "Every 6-hour average of blood glucose level for 7 days (V1)",
+          "color": "#009E73",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         },
         "chartD": {
           "type": "line",
-          "dataFile": "./data/glucose_006_points_per_day.csv",
-          "title": "Average Glucose (6 points per day)",
-          "color": "#12b886",
+          "dataFile": "./data/glucose_024_points_per_day_v1.csv",
+          "title": "Hourly average of blood glucose level for 7 days (V1)",
+          "color": "#D55E00",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         },
         "chartE": {
           "type": "line",
-          "dataFile": "./data/glucose_024_points_per_day.csv",
-          "title": "Average Glucose (24 points per day)",
-          "color": "#fab005",
+          "dataFile": "./data/glucose_024_points_per_day_v2.csv",
+          "title": "Hourly average of blood glucose level for 7 days (V2)",
+          "color": "#F0E442",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         },
         "chartF": {
           "type": "line",
-          "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
-          "title": "Average Glucose by Hour (First 2 Weeks)",
-          "color": "#e64980",
+          "dataFile": "./data/glucose_024_points_per_day_v3.csv",
+          "title": "Hourly average of blood glucose level for 7 days (V3)",
+          "color": "#CC79A7",
           "thresholdLow": 3.9,
-          "thresholdHigh": 10.0
+          "thresholdHigh": 8
         }
       },
       "response": [
         {
-          "id": "preferred_chart",
-          "prompt": "Which chart do you prefer for viewing your glucose data?",
+          "id": "comfortable_time_interval",
+          "prompt": "At which time interval do you feel comfortable making health decisions?",
           "required": true,
           "location": "belowStimulus",
           "type": "radio",
           "options": [
             {
-              "label": "Chart A (1 point per day)",
-              "value": "chart_a"
+              "label": "1 point per day",
+              "value": "1_point"
             },
             {
-              "label": "Chart B (2 points per day)",
-              "value": "chart_b"
+              "label": "2 points per day (every 12 hours)",
+              "value": "2_points"
             },
             {
-              "label": "Chart C (4 points per day)",
-              "value": "chart_c"
+              "label": "4 points per day (every 6 hours)",
+              "value": "4_points"
             },
             {
-              "label": "Chart D (6 points per day)",
-              "value": "chart_d"
-            },
-            {
-              "label": "Chart E (24 points per day)",
-              "value": "chart_e"
-            },
-            {
-              "label": "Chart F (Hourly average)",
-              "value": "chart_f"
+              "label": "24 points per day (hourly)",
+              "value": "24_points"
             }
           ]
         }
       ]
     },
-    
     "glucose-conclusion": {
       "type": "markdown",
       "path": "my-study/assets/glucose-conclusion.md",
@@ -895,19 +904,44 @@
       "diabetes-verification-test",
       "minivlat-intro",
       "$mini-vlat.se.full",
+      "social-descriptors-likert",
       "glucose-intro",
-      "glucose-line-001-point-per-day-v1",
-      "glucose-line-001-point-per-day-v2",
-      "glucose-line-001-point-per-day-v3",
-      "glucose-line-002-points-per-day-v1",
-      "glucose-line-002-points-per-day-v2",
-      "glucose-line-002-points-per-day-v3",
-      "glucose-line-004-points-per-day-v1",
-      "glucose-line-004-points-per-day-v2",
-      "glucose-line-004-points-per-day-v3",
-      "glucose-line-024-points-per-day-v1",
-      "glucose-line-024-points-per-day-v2",
-      "glucose-line-024-points-per-day-v3",
+      {
+        "id": "randomized-dataset-and-aggregation-order",
+        "order": "random",
+        "components": [
+          {
+            "id": "low-variation-aggregation-order-randomized",
+            "order": "random",
+            "components": [
+              "glucose-line-001-point-per-day-v1",
+              "glucose-line-002-points-per-day-v1",
+              "glucose-line-004-points-per-day-v1",
+              "glucose-line-024-points-per-day-v1"
+            ]
+          },
+          {
+            "id": "medium-variation-aggregation-order-randomized",
+            "order": "random",
+            "components": [
+              "glucose-line-001-point-per-day-v2",
+              "glucose-line-002-points-per-day-v2",
+              "glucose-line-004-points-per-day-v2",
+              "glucose-line-024-points-per-day-v2"
+            ]
+          },
+          {
+            "id": "high-variation-aggregation-order-randomized",
+            "order": "random",
+            "components": [
+              "glucose-line-001-point-per-day-v3",
+              "glucose-line-002-points-per-day-v3",
+              "glucose-line-004-points-per-day-v3",
+              "glucose-line-024-points-per-day-v3"
+            ]
+          }
+        ]
+      },
       "glucose-line-hourly",
       "glucose-chart-comparison",
       "glucose-conclusion",

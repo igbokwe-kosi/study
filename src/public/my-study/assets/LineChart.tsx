@@ -14,11 +14,11 @@ type LineChartParams = {
 };
 
 const SVG_WIDTH = 1000;
-const SVG_HEIGHT = 400;
+const SVG_HEIGHT = 460;
 const MARGIN = {
   top: 50,
   right: 30,
-  bottom: 80,
+  bottom: 130,
   left: 70,
 };
 
@@ -27,12 +27,20 @@ type Datum = { label: string; rawLabel: string; value: number };
 const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'Hour Range', 'label', 'Date/Time'];
 
 const getLabelKey = (row: d3.DSVRowString<string>) =>
-  labelKeys.find((key) => key in row) || 'label';
+  Object.keys(row).find((rowKey) => labelKeys.some(
+    (candidate) => rowKey.replace(/^\uFEFF/, '').trim().toLowerCase()
+      === candidate.trim().toLowerCase(),
+  ))
+  || Object.keys(row)[0]
+  || 'label';
 
 const getValueKey = (row: d3.DSVRowString<string>) =>
-  (['Average Glucose level', 'value'] as const).find((key) => key in row) || 'value';
-
-const MGDL_TO_MMOLL = 18;
+  Object.keys(row).find((rowKey) => (['Average Glucose level', 'value'] as const).some(
+    (candidate) => rowKey.replace(/^\uFEFF/, '').trim().toLowerCase()
+      === candidate.trim().toLowerCase(),
+  ))
+  || Object.keys(row)[1]
+  || 'value';
 
 const DAY_TO_ABBR: Record<string, string> = {
   Monday: 'Mon',
@@ -46,6 +54,7 @@ const DAY_TO_ABBR: Record<string, string> = {
 
 const ABBR_DAYS = Object.values(DAY_TO_ABBR);
 const FULL_DAYS = Object.keys(DAY_TO_ABBR);
+const SUNDAY_FIRST_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const toAbbrevDay = (label: string) =>
   label.replace(
@@ -97,21 +106,25 @@ const getDayName = (label: string): string | null => {
   return DAY_TO_ABBR[found.charAt(0).toUpperCase() + found.slice(1).toLowerCase()] || null;
 };
 
+const parseClockTo24Hour = (label: string): number => {
+  const match = label.match(/\b(1[0-2]|[1-9])(am|pm)\b/i);
+  if (!match) return -1;
+
+  const hour12 = Number(match[1]);
+  const suffix = match[2].toLowerCase();
+  return (hour12 % 12) + (suffix === 'pm' ? 12 : 0);
+};
+
 export default function LineChart({
   parameters,
   setAnswer,
 }: StimulusParams<LineChartParams>) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<Datum[] | null>(null);
-  const [xAxisLabel, setXAxisLabel] = useState<string>('Date');
 
   const strokeColor = parameters.color || '#4c6ef5';
-  const normalizeThreshold = (value: number | undefined, fallbackMmol: number) => {
-    const resolved = value ?? fallbackMmol;
-    return resolved > 30 ? resolved / MGDL_TO_MMOLL : resolved;
-  };
-  const low = normalizeThreshold(parameters.thresholdLow, 3.9);
-  const high = normalizeThreshold(parameters.thresholdHigh, 10.0);
+  const low = parameters.thresholdLow ?? 3.9;
+  const high = parameters.thresholdHigh ?? 8.0;
 
   useEffect(() => {
     let mounted = true;
@@ -131,7 +144,6 @@ export default function LineChart({
 
       const labelKey = getLabelKey(rows[0]);
       const valueKey = getValueKey(rows[0]);
-      setXAxisLabel(parameters.xLabel || labelKey);
       const shouldCleanLabel = labelKey === 'Date Range';
 
       const parsed = rows
@@ -144,11 +156,33 @@ export default function LineChart({
           return {
             rawLabel: formattedLabel,
             label: formattedLabel,
-            value: valueMgdl / MGDL_TO_MMOLL,
+            value: valueMgdl,
           };
         })
         .filter((d) => Number.isFinite(d.value));
-      setData(parsed);
+
+      const withIndex = parsed.map((d, index) => ({ ...d, index }));
+      const shouldSortSundayFirst = !parameters.dataFile.includes('first_2_weeks')
+        && withIndex.length <= 168
+        && withIndex.every((d) => getDayName(d.label) !== null);
+
+      const finalData = shouldSortSundayFirst
+        ? withIndex
+          .sort((a, b) => {
+            const aDay = getDayName(a.label) || 'Sun';
+            const bDay = getDayName(b.label) || 'Sun';
+            const dayDiff = SUNDAY_FIRST_DAYS.indexOf(aDay) - SUNDAY_FIRST_DAYS.indexOf(bDay);
+            if (dayDiff !== 0) return dayDiff;
+
+            const timeDiff = parseClockTo24Hour(a.label) - parseClockTo24Hour(b.label);
+            if (timeDiff !== 0) return timeDiff;
+
+            return a.index - b.index;
+          })
+          .map(({ index: _index, ...rest }) => rest)
+        : withIndex.map(({ index: _index, ...rest }) => rest);
+
+      setData(finalData);
     });
     return () => {
       mounted = false;
@@ -182,9 +216,6 @@ export default function LineChart({
     const pointCount = data.length;
     const likelyPointsPerDay = Math.round(pointCount / 7);
     const hideDenseXAxisTickLabels = likelyPointsPerDay >= 6;
-    const xAxisTitleOffset =
-      likelyPointsPerDay === 2 || likelyPointsPerDay === 4 ? 130 : 90;
-
     const dayNamesInOrder = data
       .map((d) => getDayName(d.label))
       .filter((day): day is string => day !== null)
@@ -193,7 +224,7 @@ export default function LineChart({
     const dayColorScale = d3
       .scaleOrdinal<string, string>()
       .domain(dayNamesInOrder)
-      .range(['#65350f', '#f08c00', '#9e2f61', '#1c7ed6', '#7048e8', '#c2255c', '#0b7285']);
+      .range(['#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7']);
 
     const useDayColors = likelyPointsPerDay > 1 && dayNamesInOrder.length > 1;
 
@@ -221,14 +252,6 @@ export default function LineChart({
       .x((d) => x(d.label) ?? 0)
       .y((d) => y(d.value));
 
-    const areaFill = d3.color(strokeColor) || d3.rgb('#4c6ef5');
-    areaFill.opacity = 0.12;
-    const area = d3
-      .area<Datum>()
-      .x((d) => x(d.label) ?? 0)
-      .y0(() => y.range()[0])
-      .y1((d) => y(d.value));
-
     // Tooltip container (HTML) for interactive hover
     const container = d3.select(svgRef.current!.parentElement as HTMLElement);
     container.selectAll('.chart-tooltip').remove();
@@ -250,14 +273,14 @@ export default function LineChart({
       {
         value: low,
         label: 'Low threshold',
-        color: '#ff6b6b',
-        hover: '#ff3b3b',
+        color: '#2b8a3e',
+        hover: '#2f9e44',
       },
       {
         value: high,
         label: 'High threshold',
-        color: '#ffa94d',
-        hover: '#ff922b',
+        color: '#2b8a3e',
+        hover: '#2f9e44',
       },
     ];
 
@@ -332,13 +355,6 @@ export default function LineChart({
         .style('opacity', 0.6);
     });
 
-    root
-      .append('path')
-      .datum(data)
-      .attr('fill', areaFill.formatRgb())
-      .attr('stroke', 'none')
-      .attr('d', area);
-
     if (useDayColors) {
       const groupedByDay = d3.group(data, (d) => getDayName(d.label) || '__none__');
       groupedByDay.forEach((dayData, day) => {
@@ -402,7 +418,6 @@ export default function LineChart({
     if (hideDenseXAxisTickLabels) {
       xAxisGroup.selectAll('text').style('display', 'none');
       xAxisGroup.selectAll('line').style('display', 'none');
-      xAxisGroup.selectAll('path').style('display', 'none');
 
       // Add day labels for dense charts (6+ points per day)
       // Group data points by day
@@ -432,8 +447,8 @@ export default function LineChart({
             .attr('x', centerX)
             .attr('y', height + 30)
             .attr('text-anchor', 'middle')
-            .style('font-size', '17px')
-            .style('font-weight', 'bold')
+            .style('font-size', '13px')
+            .style('font-weight', 'normal')
             .style('fill', '#333')
             .text(day);
         }
@@ -444,8 +459,8 @@ export default function LineChart({
         .selectAll('text')
         .attr('transform', useTiltedLabels ? 'rotate(40)' : 'rotate(0)')
         .style('text-anchor', useTiltedLabels ? 'start' : 'middle')
-        .style('font-size', '17px')
-        .style('font-weight', 'bold');
+        .style('font-size', '12px')
+        .style('font-weight', 'normal');
     }
 
     root
@@ -466,15 +481,6 @@ export default function LineChart({
 
     root
       .append('text')
-      .attr('x', width / 2)
-      .attr('y', height + xAxisTitleOffset)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '16px')
-      .style('font-weight', 'bold')
-      .text(xAxisLabel);
-
-    root
-      .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('x', -height / 2)
       .attr('y', -50)
@@ -482,7 +488,7 @@ export default function LineChart({
       .style('font-size', '16px')
       .style('font-weight', 'bold')
       .text('Glucose Level (mmol/L)');
-  }, [data, high, low, strokeColor, parameters.title, xAxisLabel]);
+  }, [data, high, low, strokeColor, parameters.title]);
 
   useEffect(() => {
     if (!setAnswer) return;
@@ -494,7 +500,7 @@ export default function LineChart({
       <svg
         ref={svgRef}
         width="100%"
-        height="520"
+        height="620"
         role="img"
         aria-label={parameters.title}
       />
