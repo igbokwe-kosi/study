@@ -727,39 +727,6 @@
         }
       ]
     },
-    "glucose-line-hourly": {
-      "baseComponent": "glucoseLineChart",
-      "parameters": {
-        "dataFile": "./data/glucose_by_hour_first_2_weeks.csv",
-        "title": "Hourly average of blood glucose level for 7 days",
-        "color": "#56B4E9",
-        "thresholdLow": 3.9,
-        "thresholdHigh": 8
-      },
-      "response": [
-        {
-          "id": "glucose-line-hourly-likert",
-          "prompt": "Please rate your agreement with the following statements.",
-          "location": "belowStimulus",
-          "type": "matrix-radio",
-          "answerOptions": [
-            "Strongly Disagree",
-            "Disagree",
-            "Slightly Disagree",
-            "Slightly Agree",
-            "Agree",
-            "Strongly Agree"
-          ],
-          "questionOptions": [
-            "I find this visualization easy to understand",
-            "I find this visualization difficult to use",
-            "I am skeptical about the information presented in this visualization",
-            "I trust this data visualization"
-          ],
-          "required": true
-        }
-      ]
-    },
     "glucose-chart-comparison": {
       "baseComponent": "glucoseChartComparison",
       "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
@@ -816,6 +783,136 @@
       "response": [
         {
           "id": "comfortable_time_interval",
+          "prompt": "At which time interval do you feel comfortable making health decisions?",
+          "required": true,
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            {
+              "label": "1 point per day",
+              "value": "1_point"
+            },
+            {
+              "label": "2 points per day (every 12 hours)",
+              "value": "2_points"
+            },
+            {
+              "label": "4 points per day (every 6 hours)",
+              "value": "4_points"
+            },
+            {
+              "label": "24 points per day (hourly)",
+              "value": "24_points"
+            }
+          ]
+        }
+      ]
+    },
+    "glucose-chart-comparison-v2": {
+      "baseComponent": "glucoseChartComparison",
+      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
+      "parameters": {
+        "chartA": {
+          "type": "line",
+          "dataFile": "./data/glucose_001_point_per_day_v2.csv",
+          "title": "Daily average of blood glucose level for 7 days (V2)",
+          "color": "#0072B2",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartB": {
+          "type": "line",
+          "dataFile": "./data/glucose_002_points_per_day_v2.csv",
+          "title": "Every 12-hour average of blood glucose level for 7 days (V2)",
+          "color": "#E69F00",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartC": {
+          "type": "line",
+          "dataFile": "./data/glucose_004_points_per_day_v2.csv",
+          "title": "Every 6-hour average of blood glucose level for 7 days (V2)",
+          "color": "#009E73",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartD": {
+          "type": "line",
+          "dataFile": "./data/glucose_024_points_per_day_v2.csv",
+          "title": "Hourly average of blood glucose level for 7 days (V2)",
+          "color": "#D55E00",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        }
+      },
+      "response": [
+        {
+          "id": "comfortable_time_interval_v2",
+          "prompt": "At which time interval do you feel comfortable making health decisions?",
+          "required": true,
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            {
+              "label": "1 point per day",
+              "value": "1_point"
+            },
+            {
+              "label": "2 points per day (every 12 hours)",
+              "value": "2_points"
+            },
+            {
+              "label": "4 points per day (every 6 hours)",
+              "value": "4_points"
+            },
+            {
+              "label": "24 points per day (hourly)",
+              "value": "24_points"
+            }
+          ]
+        }
+      ]
+    },
+    "glucose-chart-comparison-v3": {
+      "baseComponent": "glucoseChartComparison",
+      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
+      "parameters": {
+        "chartA": {
+          "type": "line",
+          "dataFile": "./data/glucose_001_point_per_day_v3.csv",
+          "title": "Daily average of blood glucose level for 7 days (V3)",
+          "color": "#0072B2",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartB": {
+          "type": "line",
+          "dataFile": "./data/glucose_002_points_per_day_v3.csv",
+          "title": "Every 12-hour average of blood glucose level for 7 days (V3)",
+          "color": "#E69F00",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartC": {
+          "type": "line",
+          "dataFile": "./data/glucose_004_points_per_day_v3.csv",
+          "title": "Every 6-hour average of blood glucose level for 7 days (V3)",
+          "color": "#009E73",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        },
+        "chartD": {
+          "type": "line",
+          "dataFile": "./data/glucose_024_points_per_day_v3.csv",
+          "title": "Hourly average of blood glucose level for 7 days (V3)",
+          "color": "#D55E00",
+          "thresholdLow": 3.9,
+          "thresholdHigh": 8
+        }
+      },
+      "response": [
+        {
+          "id": "comfortable_time_interval_v3",
           "prompt": "At which time interval do you feel comfortable making health decisions?",
           "required": true,
           "location": "belowStimulus",
@@ -942,8 +1039,9 @@
           }
         ]
       },
-      "glucose-line-hourly",
       "glucose-chart-comparison",
+      "glucose-chart-comparison-v2",
+      "glucose-chart-comparison-v3",
       "glucose-conclusion",
       "post-study-questionnaire"
     ]

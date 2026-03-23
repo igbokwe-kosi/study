@@ -226,7 +226,7 @@ export default function LineChart({
       .domain(dayNamesInOrder)
       .range(['#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7']);
 
-    const useDayColors = likelyPointsPerDay > 1 && dayNamesInOrder.length > 1;
+    const useDayColors = dayNamesInOrder.length > 1;
 
     const getDatumColor = (datum: Datum) => {
       if (!useDayColors) return strokeColor;
@@ -356,17 +356,22 @@ export default function LineChart({
     });
 
     if (useDayColors) {
-      const groupedByDay = d3.group(data, (d) => getDayName(d.label) || '__none__');
-      groupedByDay.forEach((dayData, day) => {
-        if (dayData.length < 2) return;
+      for (let i = 1; i < data.length; i++) {
+        const prev = data[i - 1];
+        const curr = data[i];
+        const prevX = x(prev.label) ?? 0;
+        const currX = x(curr.label) ?? 0;
+        const prevDay = getDayName(prev.label);
+
         root
-          .append('path')
-          .datum(dayData)
-          .attr('fill', 'none')
-          .attr('stroke', day === '__none__' ? strokeColor : dayColorScale(day))
-          .attr('stroke-width', 3)
-          .attr('d', line);
-      });
+          .append('line')
+          .attr('x1', prevX)
+          .attr('x2', currX)
+          .attr('y1', y(prev.value))
+          .attr('y2', y(curr.value))
+          .attr('stroke', prevDay ? dayColorScale(prevDay) : strokeColor)
+          .attr('stroke-width', 3);
+      }
     } else {
       root
         .append('path')
