@@ -59,13 +59,13 @@ const ABBR_DAYS = Object.values(DAY_TO_ABBR);
 const FULL_DAYS = Object.keys(DAY_TO_ABBR);
 const SUNDAY_FIRST_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAY_COLOR_MAP: Record<string, string> = {
-  Sun: '#CC79A7',
-  Mon: '#E69F00',
+  Sun: '#E69F00',
+  Mon: '#56B4E9 ',
   Tue: '#7A7A00',
-  Wed: '#009E73',
-  Thu: '#F0E442',
-  Fri: '#0072B2',
-  Sat: '#D55E00',
+  Wed: '#F0E442',
+  Thu: '#0072B2',
+  Fri: '#D55E00',
+  Sat: '#CC79A7',
 };
 
 const toAbbrevDay = (label: string) =>
@@ -472,7 +472,9 @@ export default function LineChart({
     }
 
     const yTickStep = unit === 'mg' ? 20 : 1;
-    const yTickValues = d3.range(0, yUpperBound + yTickStep, yTickStep);
+    const yTickValues = d3
+      .range(0, yUpperBound + yTickStep, yTickStep)
+      .filter((_, index) => index % 2 === 0);
 
     root
       .append('g')

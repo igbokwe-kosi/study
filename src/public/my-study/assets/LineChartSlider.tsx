@@ -60,6 +60,14 @@ export default function LineChartSlider({ parameters, answers }: Props) {
   const safeIndex = Math.min(selectedIndex, items.length - 1);
   const selected = items[safeIndex];
   const ChartComponent = selected.chart.type === 'line' ? LineChart : BarChart;
+  const TRACK_SIDE_INSET_PX = 10;
+
+  const markerLeft = (index: number) => {
+    const percent = items.length === 1 ? 50 : (index / (items.length - 1)) * 100;
+    return items.length === 1
+      ? '50%'
+      : `calc(${TRACK_SIDE_INSET_PX}px + (${percent} * (100% - ${TRACK_SIDE_INSET_PX * 2}px) / 100))`;
+  };
 
   return (
     <div
@@ -93,6 +101,32 @@ export default function LineChartSlider({ parameters, answers }: Props) {
 
           <div style={{ flex: 1 }}>
             <div style={{ position: 'relative', height: '24px', display: 'flex', alignItems: 'center' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  pointerEvents: 'none',
+                  zIndex: 3,
+                }}
+              >
+                {items.map((item, index) => (
+                  <div
+                    key={`dot-${item.label}`}
+                    style={{
+                      position: 'absolute',
+                      left: markerLeft(index),
+                      top: '50%',
+                      width: '4px',
+                      height: '4px',
+                      marginLeft: '-2px',
+                      marginTop: '-2px',
+                      borderRadius: '50%',
+                      background: '#1f3a4a',
+                    }}
+                  />
+                ))}
+              </div>
+
               <input
                 type="range"
                 min={0}
@@ -104,21 +138,18 @@ export default function LineChartSlider({ parameters, answers }: Props) {
               />
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-                marginTop: '8px',
-                fontSize: '12px',
-                color: '#555',
-              }}
-            >
+            <div style={{ position: 'relative', height: '22px', marginTop: '10px' }}>
               {items.map((item, index) => (
                 <div
                   key={item.label}
                   style={{
-                    textAlign: 'center',
+                    position: 'absolute',
+                    left: markerLeft(index),
+                    transform: 'translateX(-50%)',
+                    fontSize: '12px',
+                    color: '#555',
                     fontWeight: index === safeIndex ? 'bold' : 'normal',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {item.label}
