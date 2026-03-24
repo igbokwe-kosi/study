@@ -23,6 +23,9 @@ const MARGIN = {
 };
 
 type Datum = { label: string; rawLabel: string; value: number };
+type GlucoseUnit = 'mmol' | 'mg';
+const MMOL_TO_MGDL = 18;
+const GLUCOSE_UNIT_RESPONSE_ID = 'glucose-preferred-unit';
 
 const labelKeys = ['Date Range', 'Date', 'Day', 'Hour', 'Hour Range', 'label', 'Date/Time'];
 
@@ -55,6 +58,15 @@ const DAY_TO_ABBR: Record<string, string> = {
 const ABBR_DAYS = Object.values(DAY_TO_ABBR);
 const FULL_DAYS = Object.keys(DAY_TO_ABBR);
 const SUNDAY_FIRST_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAY_COLOR_MAP: Record<string, string> = {
+  Sun: '#CC79A7',
+  Mon: '#E69F00',
+  Tue: '#7A7A00',
+  Wed: '#009E73',
+  Thu: '#F0E442',
+  Fri: '#0072B2',
+  Sat: '#D55E00',
+};
 
 const toAbbrevDay = (label: string) =>
   label.replace(
@@ -115,16 +127,27 @@ const parseClockTo24Hour = (label: string): number => {
   return (hour12 % 12) + (suffix === 'pm' ? 12 : 0);
 };
 
+const getPreferredUnitFromAnswers = (answers: StimulusParams<LineChartParams>['answers']): GlucoseUnit | null => {
+  const unitAnswer = Object.values(answers).find((storedAnswer) => Object.hasOwn(storedAnswer.answer, GLUCOSE_UNIT_RESPONSE_ID))
+    ?.answer?.[GLUCOSE_UNIT_RESPONSE_ID];
+
+  if (typeof unitAnswer !== 'string') return null;
+  const normalized = unitAnswer.toLowerCase();
+  if (normalized.includes('mg')) return 'mg';
+  if (normalized.includes('mmol')) return 'mmol';
+  return null;
+};
+
 export default function LineChart({
   parameters,
   setAnswer,
+  answers,
 }: StimulusParams<LineChartParams>) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data, setData] = useState<Datum[] | null>(null);
+  const [unit, setUnit] = useState<GlucoseUnit>('mmol');
 
   const strokeColor = parameters.color || '#4c6ef5';
-  const low = parameters.thresholdLow ?? 3.9;
-  const high = parameters.thresholdHigh ?? 8.0;
 
   useEffect(() => {
     let mounted = true;
@@ -148,18 +171,21 @@ export default function LineChart({
 
       const parsed = rows
         .map((d) => {
-          const raw = (d[labelKey] as string) || '';
+          const raw = ((d[labelKey] as string) || '').trim();
           const formattedLabel = shouldCleanLabel
             ? cleanLabel(raw)
             : formatLabelForDataset(raw, parameters.dataFile);
-          const valueMgdl = Number(d[valueKey] || 0);
+          const rawValue = (d[valueKey] as string) || '';
+          const valueMgdl = Number(rawValue);
           return {
             rawLabel: formattedLabel,
             label: formattedLabel,
             value: valueMgdl,
+            hasValue: rawValue.trim() !== '',
           };
         })
-        .filter((d) => Number.isFinite(d.value));
+        .filter((d) => d.label !== '' && d.hasValue && Number.isFinite(d.value))
+        .map(({ hasValue: _hasValue, ...rest }) => rest);
 
       const withIndex = parsed.map((d, index) => ({ ...d, index }));
       const shouldSortSundayFirst = !parameters.dataFile.includes('first_2_weeks')
@@ -182,15 +208,30 @@ export default function LineChart({
           .map(({ index: _index, ...rest }) => rest)
         : withIndex.map(({ index: _index, ...rest }) => rest);
 
-      setData(finalData);
+      const preferredUnit = getPreferredUnitFromAnswers(answers);
+      const yLabel = (parameters.yLabel || '').toLowerCase();
+      const hasMgHint = /\bmg\b|mg\/dl/.test(yLabel);
+      const thresholdSuggestsMg = Math.max(parameters.thresholdLow ?? 0, parameters.thresholdHigh ?? 0) > 22;
+      const valueSuggestsMg = (d3.max(finalData, (d) => d.value) ?? 0) > 22;
+      const resolvedUnit: GlucoseUnit = preferredUnit || (hasMgHint || thresholdSuggestsMg || valueSuggestsMg ? 'mg' : 'mmol');
+      const convertedData = resolvedUnit === 'mg'
+        ? finalData.map((d) => ({ ...d, value: d.value * MMOL_TO_MGDL }))
+        : finalData;
+
+      setUnit(resolvedUnit);
+
+      setData(convertedData);
     });
     return () => {
       mounted = false;
     };
-  }, [parameters.dataFile]);
+  }, [parameters.dataFile, parameters.thresholdLow, parameters.thresholdHigh, parameters.yLabel, answers]);
 
   useEffect(() => {
     if (!data || !svgRef.current) return;
+
+    const low = unit === 'mg' ? 4 * MMOL_TO_MGDL : 4;
+    const high = unit === 'mg' ? 8 * MMOL_TO_MGDL : 8;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
@@ -203,14 +244,10 @@ export default function LineChart({
       .append('g')
       .attr('transform', `translate(${MARGIN.left},${MARGIN.top})`);
 
-    const yExtent = d3.extent(data, (d) => d.value) as [number, number];
-    const yMin = Math.min(low, yExtent[0] ?? 0);
-    const yMax = Math.max(high, yExtent[1] ?? 0);
-
-    const yPadding = Math.max(0.8, (yMax - yMin) * 0.1);
+    const yUpperBound = unit === 'mg' ? 400 : 22;
     const y = d3
       .scaleLinear()
-      .domain([Math.max(0, yMin - yPadding), yMax + yPadding])
+      .domain([0, yUpperBound])
       .range([height, 0]);
 
     const pointCount = data.length;
@@ -221,17 +258,12 @@ export default function LineChart({
       .filter((day): day is string => day !== null)
       .filter((day, index, arr) => arr.indexOf(day) === index);
 
-    const dayColorScale = d3
-      .scaleOrdinal<string, string>()
-      .domain(dayNamesInOrder)
-      .range(['#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7']);
-
     const useDayColors = dayNamesInOrder.length > 1;
 
     const getDatumColor = (datum: Datum) => {
       if (!useDayColors) return strokeColor;
       const day = getDayName(datum.label);
-      return day ? dayColorScale(day) : strokeColor;
+      return day ? DAY_COLOR_MAP[day] || strokeColor : strokeColor;
     };
 
     const getXPadding = () => {
@@ -313,7 +345,7 @@ export default function LineChart({
           display.attr('stroke-width', 3).attr('stroke', hover);
           tooltip
             .style('opacity', '1')
-            .html(`<strong>${label}</strong><br/>${value.toFixed(1)} mmol/L`);
+            .html(`<strong>${label}</strong><br/>${unit === 'mg' ? value.toFixed(0) : value.toFixed(1)} ${unit === 'mg' ? 'mg/dl' : 'mmol/L'}`);
         })
         .on('mousemove', (e: MouseEvent) => {
           tooltip
@@ -324,35 +356,6 @@ export default function LineChart({
           display.attr('stroke-width', 2).attr('stroke', color);
           tooltip.style('opacity', '0');
         });
-    });
-
-    const daySeparatorIndices: number[] = [];
-    for (let i = 1; i < data.length; i++) {
-      const prevDay = getDayName(data[i - 1].label);
-      const currentDay = getDayName(data[i].label);
-      
-      if (prevDay && currentDay && prevDay !== currentDay) {
-        daySeparatorIndices.push(i);
-      }
-    }
-
-    daySeparatorIndices.forEach((idx) => {
-      const prevLabel = data[idx - 1].label;
-      const currentLabel = data[idx].label;
-      const prevX = x(prevLabel) ?? 0;
-      const currentX = x(currentLabel) ?? 0;
-      const separatorX = (prevX + currentX) / 2;
-
-      root
-        .append('line')
-        .attr('x1', separatorX)
-        .attr('x2', separatorX)
-        .attr('y1', 0)
-        .attr('y2', height)
-        .attr('stroke', '#444444')
-        .attr('stroke-width', 1.5)
-        .attr('stroke-dasharray', '4,4')
-        .style('opacity', 0.6);
     });
 
     if (useDayColors) {
@@ -369,7 +372,7 @@ export default function LineChart({
           .attr('x2', currX)
           .attr('y1', y(prev.value))
           .attr('y2', y(curr.value))
-          .attr('stroke', prevDay ? dayColorScale(prevDay) : strokeColor)
+          .attr('stroke', prevDay ? DAY_COLOR_MAP[prevDay] || strokeColor : strokeColor)
           .attr('stroke-width', 3);
       }
     } else {
@@ -400,7 +403,7 @@ export default function LineChart({
         tooltip
           .style('opacity', '1')
           .html(
-            `<strong>${d.rawLabel}</strong><br/>${d.value.toFixed(1)} mmol/L`,
+            `<strong>${d.rawLabel}</strong><br/>${unit === 'mg' ? d.value.toFixed(0) : d.value.toFixed(1)} ${unit === 'mg' ? 'mg/dl' : 'mmol/L'}`,
           );
       })
       .on('mousemove', (event: MouseEvent) => {
@@ -468,9 +471,12 @@ export default function LineChart({
         .style('font-weight', 'normal');
     }
 
+    const yTickStep = unit === 'mg' ? 20 : 1;
+    const yTickValues = d3.range(0, yUpperBound + yTickStep, yTickStep);
+
     root
       .append('g')
-      .call(d3.axisLeft(y))
+      .call(d3.axisLeft(y).tickValues(yTickValues))
       .selectAll('text')
       .style('font-size', '17px')
       .style('font-weight', 'bold');
@@ -492,8 +498,16 @@ export default function LineChart({
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
       .style('font-weight', 'bold')
-      .text('Glucose Level (mmol/L)');
-  }, [data, high, low, strokeColor, parameters.title]);
+      .text(parameters.yLabel || `Glucose Level (${unit === 'mg' ? 'mg/dl' : 'mmol/L'})`);
+  }, [
+    data,
+    strokeColor,
+    parameters.title,
+    parameters.yLabel,
+    parameters.thresholdLow,
+    parameters.thresholdHigh,
+    unit,
+  ]);
 
   useEffect(() => {
     if (!setAnswer) return;

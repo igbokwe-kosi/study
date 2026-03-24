@@ -46,7 +46,7 @@ type ChartComparisonParams = {
   };
 };
 
-export default function ChartComparison({ parameters, setAnswer }: StimulusParams<ChartComparisonParams>) {
+export default function ChartComparison({ parameters, setAnswer, answers }: StimulusParams<ChartComparisonParams>) {
   useEffect(() => {
     if (!setAnswer) return;
     setAnswer({ status: true, answers: {} });
@@ -54,7 +54,7 @@ export default function ChartComparison({ parameters, setAnswer }: StimulusParam
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', padding: '8px 16px' }}>
-      <LineChartSlider parameters={parameters} />
+      <LineChartSlider parameters={parameters} answers={answers} />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
+import { StimulusParams } from '../../../store/types';
 
 type ChartConfig = {
   type: 'line' | 'bar';
@@ -30,9 +31,10 @@ type SliderItem = {
 
 type Props = {
   parameters: ChartComparisonParams;
+  answers: StimulusParams<ChartConfig>['answers'];
 };
 
-export default function LineChartSlider({ parameters }: Props) {
+export default function LineChartSlider({ parameters, answers }: Props) {
   const items = useMemo<SliderItem[]>(() => {
     const ordered: Array<{ key: keyof ChartComparisonParams; label: string }> = [
       { key: 'chartA', label: '1 point' },
@@ -89,15 +91,41 @@ export default function LineChartSlider({ parameters }: Props) {
             Previous
           </button>
 
-          <input
-            type="range"
-            min={0}
-            max={items.length - 1}
-            step={1}
-            value={safeIndex}
-            onChange={(event) => setSelectedIndex(Number(event.target.value))}
-            style={{ flex: 1 }}
-          />
+          <div style={{ flex: 1 }}>
+            <div style={{ position: 'relative', height: '24px', display: 'flex', alignItems: 'center' }}>
+              <input
+                type="range"
+                min={0}
+                max={items.length - 1}
+                step={1}
+                value={safeIndex}
+                onChange={(event) => setSelectedIndex(Number(event.target.value))}
+                style={{ width: '100%', position: 'relative', zIndex: 2 }}
+              />
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${items.length}, 1fr)`,
+                marginTop: '8px',
+                fontSize: '12px',
+                color: '#555',
+              }}
+            >
+              {items.map((item, index) => (
+                <div
+                  key={item.label}
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: index === safeIndex ? 'bold' : 'normal',
+                  }}
+                >
+                  {item.label}
+                </div>
+              ))}
+            </div>
+          </div>
 
           <button
             type="button"
@@ -107,34 +135,12 @@ export default function LineChartSlider({ parameters }: Props) {
             Next
           </button>
         </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-            marginTop: '8px',
-            fontSize: '12px',
-            color: '#555',
-          }}
-        >
-          {items.map((item, index) => (
-            <div
-              key={item.label}
-              style={{
-                textAlign: 'center',
-                fontWeight: index === safeIndex ? 'bold' : 'normal',
-              }}
-            >
-              {item.label}
-            </div>
-          ))}
-        </div>
       </div>
 
       <ChartComponent
         parameters={selected.chart}
         setAnswer={() => {}}
-        answers={{}}
+        answers={answers}
       />
     </div>
   );
