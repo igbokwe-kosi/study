@@ -329,13 +329,25 @@
     "glucose-intro": {
       "type": "markdown",
       "path": "my-study/assets/glucose-intro.md",
-      "response": []
+      "response": [
+        {
+          "id": "glucose-preferred-unit",
+          "prompt": "Which unit do you use for measuring glucose data? mmol/L (UK standard) or mg/dL (US standard)",
+          "location": "belowStimulus",
+          "type": "radio",
+          "options": [
+            "mmol/L (UK standard)",
+            "mg/dL (US standard)"
+          ],
+          "required": true
+        }
+      ]
     },
     "glucose-line-001-point-per-day-v1": {
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v1.csv",
-        "title": "Daily average of blood glucose level for 7 days (V1)",
+        "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -368,7 +380,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v2.csv",
-        "title": "Daily average of blood glucose level for 7 days (V2)",
+        "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -401,7 +413,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_001_point_per_day_v3.csv",
-        "title": "Daily average of blood glucose level for 7 days (V3)",
+        "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -434,7 +446,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v1.csv",
-        "title": "Every 12-hour average of blood glucose level for 7 days (V1)",
+        "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -467,7 +479,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v2.csv",
-        "title": "Every 12-hour average of blood glucose level for 7 days (V2)",
+        "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -500,7 +512,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_002_points_per_day_v3.csv",
-        "title": "Every 12-hour average of blood glucose level for 7 days (V3)",
+        "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -533,7 +545,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v1.csv",
-        "title": "Every 6-hour average of blood glucose level for 7 days (V1)",
+        "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -566,7 +578,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v2.csv",
-        "title": "Every 6-hour average of blood glucose level for 7 days (V2)",
+        "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -599,7 +611,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_004_points_per_day_v3.csv",
-        "title": "Every 6-hour average of blood glucose level for 7 days (V3)",
+        "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -632,7 +644,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v1.csv",
-        "title": "Hourly average of blood glucose level for 7 days (V1)",
+        "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -665,7 +677,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v2.csv",
-        "title": "Hourly average of blood glucose level for 7 days (V2)",
+        "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -698,7 +710,7 @@
       "baseComponent": "glucoseLineChart",
       "parameters": {
         "dataFile": "./data/glucose_024_points_per_day_v3.csv",
-        "title": "Hourly average of blood glucose level for 7 days (V3)",
+        "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
         "thresholdLow": 3.9,
         "thresholdHigh": 8
@@ -734,7 +746,7 @@
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v1.csv",
-          "title": "Daily average of blood glucose level for 7 days (V1)",
+          "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -742,7 +754,7 @@
         "chartB": {
           "type": "line",
           "dataFile": "./data/glucose_002_points_per_day_v1.csv",
-          "title": "Every 12-hour average of blood glucose level for 7 days (V1)",
+          "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -750,7 +762,7 @@
         "chartC": {
           "type": "line",
           "dataFile": "./data/glucose_004_points_per_day_v1.csv",
-          "title": "Every 6-hour average of blood glucose level for 7 days (V1)",
+          "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -758,7 +770,7 @@
         "chartD": {
           "type": "line",
           "dataFile": "./data/glucose_024_points_per_day_v1.csv",
-          "title": "Hourly average of blood glucose level for 7 days (V1)",
+          "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -766,7 +778,7 @@
         "chartE": {
           "type": "line",
           "dataFile": "./data/glucose_024_points_per_day_v2.csv",
-          "title": "Hourly average of blood glucose level for 7 days (V2)",
+          "title": "Hourly average of blood glucose level for 7 days",
           "color": "#F0E442",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -774,7 +786,7 @@
         "chartF": {
           "type": "line",
           "dataFile": "./data/glucose_024_points_per_day_v3.csv",
-          "title": "Hourly average of blood glucose level for 7 days (V3)",
+          "title": "Hourly average of blood glucose level for 7 days",
           "color": "#CC79A7",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -815,7 +827,7 @@
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v2.csv",
-          "title": "Daily average of blood glucose level for 7 days (V2)",
+          "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -823,7 +835,7 @@
         "chartB": {
           "type": "line",
           "dataFile": "./data/glucose_002_points_per_day_v2.csv",
-          "title": "Every 12-hour average of blood glucose level for 7 days (V2)",
+          "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -831,7 +843,7 @@
         "chartC": {
           "type": "line",
           "dataFile": "./data/glucose_004_points_per_day_v2.csv",
-          "title": "Every 6-hour average of blood glucose level for 7 days (V2)",
+          "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -839,7 +851,7 @@
         "chartD": {
           "type": "line",
           "dataFile": "./data/glucose_024_points_per_day_v2.csv",
-          "title": "Hourly average of blood glucose level for 7 days (V2)",
+          "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -880,7 +892,7 @@
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v3.csv",
-          "title": "Daily average of blood glucose level for 7 days (V3)",
+          "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -888,7 +900,7 @@
         "chartB": {
           "type": "line",
           "dataFile": "./data/glucose_002_points_per_day_v3.csv",
-          "title": "Every 12-hour average of blood glucose level for 7 days (V3)",
+          "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -896,7 +908,7 @@
         "chartC": {
           "type": "line",
           "dataFile": "./data/glucose_004_points_per_day_v3.csv",
-          "title": "Every 6-hour average of blood glucose level for 7 days (V3)",
+          "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -904,7 +916,7 @@
         "chartD": {
           "type": "line",
           "dataFile": "./data/glucose_024_points_per_day_v3.csv",
-          "title": "Hourly average of blood glucose level for 7 days (V3)",
+          "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
           "thresholdLow": 3.9,
           "thresholdHigh": 8
@@ -941,7 +953,15 @@
     "glucose-conclusion": {
       "type": "markdown",
       "path": "my-study/assets/glucose-conclusion.md",
-      "response": []
+      "response": [
+        {
+          "id": "glucose-conclusion-feedback",
+          "prompt": "If there is anything else you would like to share, feel free to write it here",
+          "location": "belowStimulus",
+          "type": "longText",
+          "required": false
+        }
+      ]
     },
     "post-study-questionnaire": {
       "type": "questionnaire",
@@ -1042,8 +1062,8 @@
       "glucose-chart-comparison",
       "glucose-chart-comparison-v2",
       "glucose-chart-comparison-v3",
-      "glucose-conclusion",
-      "post-study-questionnaire"
+      "post-study-questionnaire",
+      "glucose-conclusion"
     ]
   }
 }
