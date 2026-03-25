@@ -255,16 +255,17 @@
       "nextButtonLocation": "belowStimulus",
       "response": [
         {
-          "id": "diagnosis-category",
-          "prompt": "Which of the following best describes your diagnosis?",
+          "id": "diagnosis-duration-pre",
+          "prompt": "When were you first diagnosed with diabetes or prediabetes?",
           "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
-            "Type 1 diabetes",
-            "Type 2 diabetes",
-            "Prediabetes",
-            "I do not have diabetes or prediabetes"
+            "Within the past 6 months",
+            "6 to 12 months ago",
+            "1 to 3 years ago",
+            "4 to 7 years ago",
+            "More than 7 years"
           ]
         },
         {
@@ -332,12 +333,12 @@
       "response": [
         {
           "id": "glucose-preferred-unit",
-          "prompt": "Which unit do you use for measuring glucose data? mmol/L (UK standard) or mg/dL (US standard)",
+          "prompt": "**Which unit do you usually use for measuring glucose data?**",
           "location": "belowStimulus",
           "type": "radio",
           "options": [
-            "mmol/L (UK standard)",
-            "mg/dL (US standard)"
+            "mmol/L (UK standard - values usually between about 2 and 22)",
+            "mg/dL (US standard - values usually between about 40 and 400)"
           ],
           "required": true
         }
@@ -349,13 +350,13 @@
         "dataFile": "./data/glucose_001_point_per_day_v1.csv",
         "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-001-point-per-day-v1-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -382,13 +383,13 @@
         "dataFile": "./data/glucose_001_point_per_day_v2.csv",
         "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-001-point-per-day-v2-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -415,13 +416,13 @@
         "dataFile": "./data/glucose_001_point_per_day_v3.csv",
         "title": "Daily average of blood glucose level for 7 days",
         "color": "#0072B2",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-001-point-per-day-v3-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -448,13 +449,13 @@
         "dataFile": "./data/glucose_002_points_per_day_v1.csv",
         "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-002-points-per-day-v1-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -481,13 +482,13 @@
         "dataFile": "./data/glucose_002_points_per_day_v2.csv",
         "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-002-points-per-day-v2-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -514,13 +515,13 @@
         "dataFile": "./data/glucose_002_points_per_day_v3.csv",
         "title": "Every 12-hour average of blood glucose level for 7 days",
         "color": "#E69F00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-002-points-per-day-v3-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -547,13 +548,13 @@
         "dataFile": "./data/glucose_004_points_per_day_v1.csv",
         "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-004-points-per-day-v1-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -580,13 +581,13 @@
         "dataFile": "./data/glucose_004_points_per_day_v2.csv",
         "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-004-points-per-day-v2-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -613,13 +614,13 @@
         "dataFile": "./data/glucose_004_points_per_day_v3.csv",
         "title": "Every 6-hour average of blood glucose level for 7 days",
         "color": "#009E73",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-004-points-per-day-v3-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -646,13 +647,13 @@
         "dataFile": "./data/glucose_024_points_per_day_v1.csv",
         "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-024-points-per-day-v1-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -679,13 +680,13 @@
         "dataFile": "./data/glucose_024_points_per_day_v2.csv",
         "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-024-points-per-day-v2-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -712,13 +713,13 @@
         "dataFile": "./data/glucose_024_points_per_day_v3.csv",
         "title": "Hourly average of blood glucose level for 7 days",
         "color": "#D55E00",
-        "thresholdLow": 3.9,
+        "thresholdLow":4,
         "thresholdHigh": 8
       },
       "response": [
         {
           "id": "glucose-line-024-points-per-day-v3-likert",
-          "prompt": "Please rate your agreement with the following statements.",
+          "prompt": "Let's begin. Please rate your agreement with the following statements.",
           "location": "belowStimulus",
           "type": "matrix-radio",
           "answerOptions": [
@@ -741,14 +742,13 @@
     },
     "glucose-chart-comparison": {
       "baseComponent": "glucoseChartComparison",
-      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
       "parameters": {
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v1.csv",
           "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartB": {
@@ -756,7 +756,7 @@
           "dataFile": "./data/glucose_002_points_per_day_v1.csv",
           "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartC": {
@@ -764,7 +764,7 @@
           "dataFile": "./data/glucose_004_points_per_day_v1.csv",
           "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartD": {
@@ -772,7 +772,7 @@
           "dataFile": "./data/glucose_024_points_per_day_v1.csv",
           "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartE": {
@@ -780,7 +780,7 @@
           "dataFile": "./data/glucose_024_points_per_day_v2.csv",
           "title": "Hourly average of blood glucose level for 7 days",
           "color": "#F0E442",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartF": {
@@ -788,7 +788,7 @@
           "dataFile": "./data/glucose_024_points_per_day_v3.csv",
           "title": "Hourly average of blood glucose level for 7 days",
           "color": "#CC79A7",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         }
       },
@@ -822,14 +822,13 @@
     },
     "glucose-chart-comparison-v2": {
       "baseComponent": "glucoseChartComparison",
-      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
       "parameters": {
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v2.csv",
           "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartB": {
@@ -837,7 +836,7 @@
           "dataFile": "./data/glucose_002_points_per_day_v2.csv",
           "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartC": {
@@ -845,7 +844,7 @@
           "dataFile": "./data/glucose_004_points_per_day_v2.csv",
           "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartD": {
@@ -853,7 +852,7 @@
           "dataFile": "./data/glucose_024_points_per_day_v2.csv",
           "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         }
       },
@@ -887,14 +886,13 @@
     },
     "glucose-chart-comparison-v3": {
       "baseComponent": "glucoseChartComparison",
-      "instruction": "Please use the slider to review all four aggregation levels and choose the interval you are most comfortable using for decisions.",
       "parameters": {
         "chartA": {
           "type": "line",
           "dataFile": "./data/glucose_001_point_per_day_v3.csv",
           "title": "Daily average of blood glucose level for 7 days",
           "color": "#0072B2",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartB": {
@@ -902,7 +900,7 @@
           "dataFile": "./data/glucose_002_points_per_day_v3.csv",
           "title": "Every 12-hour average of blood glucose level for 7 days",
           "color": "#E69F00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartC": {
@@ -910,7 +908,7 @@
           "dataFile": "./data/glucose_004_points_per_day_v3.csv",
           "title": "Every 6-hour average of blood glucose level for 7 days",
           "color": "#009E73",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         },
         "chartD": {
@@ -918,7 +916,7 @@
           "dataFile": "./data/glucose_024_points_per_day_v3.csv",
           "title": "Hourly average of blood glucose level for 7 days",
           "color": "#D55E00",
-          "thresholdLow": 3.9,
+          "thresholdLow":4,
           "thresholdHigh": 8
         }
       },
@@ -970,16 +968,17 @@
       "nextButtonLocation": "belowStimulus",
       "response": [
         {
-          "id": "post-group-fit",
-          "prompt": "Which group fits you best?",
+          "id": "diagnosis-duration-post",
+          "prompt": "How long have you been dealing with diabetes or prediabetes?",
           "required": true,
           "location": "aboveStimulus",
           "type": "radio",
           "options": [
-            "People with Type 1 diabetes",
-            "People with Type 2 diabetes",
-            "People with prediabetes",
-            "People without diabetes or prediabetes"
+            "Less than 6 months",
+            "About 6 months to 1 year",
+            "About 1 to 3 years",
+            "About 4 to 7 years",
+            "More than 7 years"
           ]
         },
         {
@@ -1026,42 +1025,88 @@
       {
         "id": "randomized-dataset-and-aggregation-order",
         "order": "random",
+        "numSamples": 1,
         "components": [
           {
-            "id": "low-variation-aggregation-order-randomized",
-            "order": "random",
+            "id": "ascending-aggregation-order",
+            "order": "fixed",
             "components": [
-              "glucose-line-001-point-per-day-v1",
-              "glucose-line-002-points-per-day-v1",
-              "glucose-line-004-points-per-day-v1",
-              "glucose-line-024-points-per-day-v1"
+              {
+                "id": "low-variation-ascending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-001-point-per-day-v1",
+                  "glucose-line-002-points-per-day-v1",
+                  "glucose-line-004-points-per-day-v1",
+                  "glucose-line-024-points-per-day-v1"
+                ]
+              },
+              "glucose-chart-comparison",
+              {
+                "id": "medium-variation-ascending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-001-point-per-day-v2",
+                  "glucose-line-002-points-per-day-v2",
+                  "glucose-line-004-points-per-day-v2",
+                  "glucose-line-024-points-per-day-v2"
+                ]
+              },
+              "glucose-chart-comparison-v2",
+              {
+                "id": "high-variation-ascending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-001-point-per-day-v3",
+                  "glucose-line-002-points-per-day-v3",
+                  "glucose-line-004-points-per-day-v3",
+                  "glucose-line-024-points-per-day-v3"
+                ]
+              },
+              "glucose-chart-comparison-v3"
             ]
           },
           {
-            "id": "medium-variation-aggregation-order-randomized",
-            "order": "random",
+            "id": "descending-aggregation-order",
+            "order": "fixed",
             "components": [
-              "glucose-line-001-point-per-day-v2",
-              "glucose-line-002-points-per-day-v2",
-              "glucose-line-004-points-per-day-v2",
-              "glucose-line-024-points-per-day-v2"
-            ]
-          },
-          {
-            "id": "high-variation-aggregation-order-randomized",
-            "order": "random",
-            "components": [
-              "glucose-line-001-point-per-day-v3",
-              "glucose-line-002-points-per-day-v3",
-              "glucose-line-004-points-per-day-v3",
-              "glucose-line-024-points-per-day-v3"
+              {
+                "id": "low-variation-descending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-024-points-per-day-v1",
+                  "glucose-line-004-points-per-day-v1",
+                  "glucose-line-002-points-per-day-v1",
+                  "glucose-line-001-point-per-day-v1"
+                ]
+              },
+              "glucose-chart-comparison",
+              {
+                "id": "medium-variation-descending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-024-points-per-day-v2",
+                  "glucose-line-004-points-per-day-v2",
+                  "glucose-line-002-points-per-day-v2",
+                  "glucose-line-001-point-per-day-v2"
+                ]
+              },
+              "glucose-chart-comparison-v2",
+              {
+                "id": "high-variation-descending",
+                "order": "fixed",
+                "components": [
+                  "glucose-line-024-points-per-day-v3",
+                  "glucose-line-004-points-per-day-v3",
+                  "glucose-line-002-points-per-day-v3",
+                  "glucose-line-001-point-per-day-v3"
+                ]
+              },
+              "glucose-chart-comparison-v3"
             ]
           }
         ]
       },
-      "glucose-chart-comparison",
-      "glucose-chart-comparison-v2",
-      "glucose-chart-comparison-v3",
       "post-study-questionnaire",
       "glucose-conclusion"
     ]

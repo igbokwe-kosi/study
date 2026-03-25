@@ -465,7 +465,7 @@ export default function LineChart({
       const useTiltedLabels = pointCount > 10;
       xAxisGroup
         .selectAll('text')
-        .attr('transform', useTiltedLabels ? 'rotate(40)' : 'rotate(0)')
+        .attr('transform', useTiltedLabels ? 'rotate(50)' : 'rotate(0)')
         .style('text-anchor', useTiltedLabels ? 'start' : 'middle')
         .style('font-size', '12px')
         .style('font-weight', 'normal');

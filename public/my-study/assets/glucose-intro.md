@@ -11,5 +11,3 @@ You will see glucose readings displayed in five chart variations, each with a di
 
 After reviewing each visualization, you will be asked questions about how clear and useful you found the display. At the end, you will also compare all five chart variations side by side and select your preferred option. Your feedback will help us understand which sampling levels and data aggregations are most effective for presenting glucose information to patients during clinical consultations.  
 Please take your time reviewing each chart and provide your honest assessment. This section should take approximately 3-4 minutes.  
-
-**Let's begin\!**

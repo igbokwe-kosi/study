@@ -86,7 +86,25 @@ export default function LineChartSlider({ parameters, answers }: Props) {
           color: '#333',
         }}
       >
-        Visualization Comparison by Aggregation
+        Visualization Comparison by Aggregations
+      </div>
+
+      <ChartComponent
+        parameters={selected.chart}
+        setAnswer={() => {}}
+        answers={answers}
+      />
+
+      <div
+        style={{
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#333',
+          marginBottom: '12px',
+          lineHeight: 1.35,
+        }}
+      >
+        Use the slider to review all four aggregation levels and choose the interval you are most comfortable using for making health decisions.
       </div>
 
       <div style={{ marginBottom: '16px' }}>
@@ -116,12 +134,16 @@ export default function LineChartSlider({ parameters, answers }: Props) {
                       position: 'absolute',
                       left: markerLeft(index),
                       top: '50%',
-                      width: '4px',
-                      height: '4px',
-                      marginLeft: '-2px',
-                      marginTop: '-2px',
+                      width: index === safeIndex ? '16px' : '10px',
+                      height: index === safeIndex ? '16px' : '10px',
+                      marginLeft: index === safeIndex ? '-8px' : '-5px',
+                      marginTop: index === safeIndex ? '-8px' : '-5px',
                       borderRadius: '50%',
-                      background: '#1f3a4a',
+                      background: index === safeIndex ? '#0b5cab' : '#1f3a4a',
+                      border: index === safeIndex ? '2px solid #ffffff' : '1px solid #ffffff',
+                      boxShadow: index === safeIndex
+                        ? '0 0 0 3px rgba(11, 92, 171, 0.35)'
+                        : '0 1px 2px rgba(0, 0, 0, 0.25)',
                     }}
                   />
                 ))}
@@ -167,12 +189,6 @@ export default function LineChartSlider({ parameters, answers }: Props) {
           </button>
         </div>
       </div>
-
-      <ChartComponent
-        parameters={selected.chart}
-        setAnswer={() => {}}
-        answers={answers}
-      />
     </div>
   );
 }
