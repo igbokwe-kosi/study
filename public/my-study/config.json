@@ -20,7 +20,8 @@
     "withProgressBar": true,
     "autoDownloadStudy": false,
     "withSidebar": true,
-    "sidebarWidth": 200
+    "sidebarWidth": 200,
+    "studyEndMsg": "# Thank you!\n\nYour responses have been saved. Please click the link below to complete your submission on Prolific:\n\n[Complete Submission](https://app.prolific.com/submissions/complete?cc=C1N7JMZW)"
   },
   "baseComponents": {
     "glucoseLineChart": {
@@ -63,9 +64,12 @@
         },
         {
           "id": "participant-signature",
-          "prompt": "Participant signature:",
+          "prompt": "By checking the box below, you confirm that you have read and understood the information above and agree to participate in this research. This checkbox serves as your electronic signature.",
           "location": "belowStimulus",
-          "type": "shortText",
+          "type": "checkbox",
+          "options": [
+            "I agree to participate and provide my electronic signature"
+          ],
           "required": true
         },
         {
@@ -954,7 +958,7 @@
       "response": [
         {
           "id": "glucose-conclusion-feedback",
-          "prompt": "If there is anything else you would like to share, feel free to write it here",
+          "prompt": "Optional feedback:",
           "location": "belowStimulus",
           "type": "longText",
           "required": false

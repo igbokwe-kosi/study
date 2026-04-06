@@ -71,9 +71,9 @@ All data received from this study will be kept for 5 years in a secure location.
 
 In any written reports created based on this study, you will be represented anonymously (unless you have requested differently) using a pseudonym or participant number (e.g. Participant 4). No personal or confidential information will be published.
 
-## Signatures
+## Signature
 
-Your signature on this form indicates that 1) you understand to your satisfaction the information provided to you about your participation in this research project, and 2) you agree to participate in the research project.
+Checking the checkbox below indicates that 1) you understand to your satisfaction the information provided to you about your participation in this research project, and 2) you agree to participate in the research project. This checkbox serves as your electronic signature.
 
 In no way does this waive your legal rights nor release the investigators, sponsors, or involved institutions from their legal and professional responsibilities. You are free to withdraw from this research project at any time. You should feel free to ask for clarification or new information throughout your participation.
 
