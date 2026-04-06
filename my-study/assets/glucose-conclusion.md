@@ -1,5 +1,3 @@
 # **Thank you so much for your contribution to improving diabetes care!**
 
-Please click here to complete your submission on Prolific:
-
-[Complete Submission](https://app.prolific.com/submissions/complete?cc=C1N7JMZW)
+If there is anything else you would like to share, please use the box below before clicking Next to complete your submission.
