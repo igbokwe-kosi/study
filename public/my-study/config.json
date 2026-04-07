@@ -102,13 +102,7 @@
           ],
           "required": true
         },
-        {
-          "id": "pseudonym",
-          "prompt": "The pseudonym I chose for myself is:",
-          "location": "belowStimulus",
-          "type": "shortText",
-          "required": false
-        },
+        
         {
           "id": "quote-with-name",
           "prompt": "You may quote me and use my name:",
